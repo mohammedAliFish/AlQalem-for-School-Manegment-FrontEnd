@@ -1,0 +1,6 @@
+@AlQalem_HostAddress = http://localhost:5206
+
+GET {{AlQalem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
