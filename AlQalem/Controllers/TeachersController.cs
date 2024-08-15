@@ -1,9 +1,7 @@
 ﻿using AlQalem.DTOs.Teacher;
-using AlQalem.Models;
-using AlQalem.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace AlQalem.Controllers
 {
@@ -11,10 +9,10 @@ namespace AlQalem.Controllers
     [ApiController]
     public class TeachersController : ControllerBase
     {
-        private readonly ITeacherService _teacherService;
+        private readonly InterfaceTeacherService _teacherService;
         private readonly IMapper _mapper;
 
-        public TeachersController(ITeacherService teacherService, IMapper mapper)
+        public TeachersController(InterfaceTeacherService teacherService, IMapper mapper)
         {
             _teacherService = teacherService;
             _mapper = mapper;

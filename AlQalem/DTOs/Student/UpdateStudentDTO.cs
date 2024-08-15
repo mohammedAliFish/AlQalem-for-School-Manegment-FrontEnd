@@ -2,7 +2,7 @@
 {
     public class UpdateStudentDTO : CreateStudentDto
     {
-        public Guid StudentId { get; set; }
+        public required Guid StudentId { get; set; }
 
         public bool IsDeleted { get; set; }
     }

@@ -64,7 +64,7 @@ namespace AlQalem.Controllers
                 return BadRequest("Grade ID mismatch.");
             }
 
-            // استخدام AutoMapper لتحويل UpdateGradeDto إلى Grade
+            
             var grade = _mapper.Map<Grade>(updateGradeDto);
             grade.GradeId = id;
 

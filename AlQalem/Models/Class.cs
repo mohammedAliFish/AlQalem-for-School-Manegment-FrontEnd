@@ -4,17 +4,17 @@ namespace AlQalem.Models
 {
     public class Class
     {
-        public Guid ClassId { get; set; } // Primary Key
-        public string Name { get; set; }
-        public Guid GradeLevelId { get; set; } // Foreign Key to GradeLevel
-        public Guid SchoolId { get; set; } // Foreign Key to School
+        public Guid ClassId { get; set; } 
+        public required string Name { get; set; }
+        public Guid GradeLevelId { get; set; } 
+        public Guid SchoolId { get; set; } 
         public bool IsDeleted { get; set; }
 
-        // Navigation Properties
-        public GradeLevels GradeLevel { get; set; } // One Class belongs to One GradeLevel
-        public School School { get; set; } // One Class belongs to One School
-        public ICollection<Student> Students { get; set; } // One Class to Many Students
-        public ICollection<ClassTeacher> ClassTeachers { get; set; } // One Class to Many Teachers (via ClassTeachers)
+        
+        public GradeLevels GradeLevel { get; set; }
+        public School School { get; set; }
+        public ICollection<Student> Students { get; set; } 
+        public ICollection<ClassTeacher> ClassTeachers { get; set; } 
         public ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
     }
 

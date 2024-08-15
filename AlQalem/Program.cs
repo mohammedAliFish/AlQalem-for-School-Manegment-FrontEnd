@@ -5,12 +5,12 @@ using AlQalem.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 // Add services to the container.
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ISchoolService, SchoolService>();
-builder.Services.AddScoped<IClassService, ClassService>();
-builder.Services.AddScoped<ITeacherService, TeacherService>();
-builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<ISubjectService, SubjectService>();
+builder.Services.AddScoped<InterfaceUserService, UserService>();
+builder.Services.AddScoped<InterfaceSchoolService, SchoolService>();
+builder.Services.AddScoped<InterfaceClassService, ClassService>();
+builder.Services.AddScoped<InterfaceTeacherService, TeacherService>();
+builder.Services.AddScoped<InterfaceStudentService, StudentService>();
+builder.Services.AddScoped<InterfaceSubjectService, SubjectService>();
 builder.Services.AddScoped<IGradeService, GradeService>();
 
 

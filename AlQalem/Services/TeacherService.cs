@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlQalem.Services
 {
-    public class TeacherService : ITeacherService
+    public class TeacherService : InterfaceTeacherService
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -35,18 +35,18 @@ namespace AlQalem.Services
             return _mapper.Map<IEnumerable<TeacherDTO>>(teachers);
         }
 
-        // Retrieve a teacher by ID
+       
         public async Task<TeacherDTO> GetTeacherByIdAsync(Guid id)
         {
             var teacher = await _context.Teachers
-                .Include(t => t.User) // Include related entities if needed
+                .Include(t => t.User) 
                 .Include(t => t.ClassTeachers)
                 .Include(t => t.TeacherSubjects)
                 .FirstOrDefaultAsync(t => t.TeacherId == id);
             return _mapper.Map<TeacherDTO>(teacher);
         }
 
-        // Create a new teacher
+        
         public async Task<TeacherDTO> CreateTeacherAsync(CreateTeacherDTO createTeacherDto)
         {
             var teacher = _mapper.Map<Teacher>(createTeacherDto);
@@ -55,7 +55,7 @@ namespace AlQalem.Services
             return _mapper.Map<TeacherDTO>(teacher);
         }
 
-        // Update an existing teacher
+        
         public async Task<TeacherDTO> UpdateTeacherAsync(Guid id, UpdateTeacherDTO updateTeacherDto)
         {
             var teacher = await _context.Teachers.FindAsync(id);
@@ -67,7 +67,7 @@ namespace AlQalem.Services
             return _mapper.Map<TeacherDTO>(teacher);
         }
 
-        // Delete a teacher
+        
         public async Task DeleteTeacherAsync(Guid id)
         {
             var teacher = await _context.Teachers.FindAsync(id);

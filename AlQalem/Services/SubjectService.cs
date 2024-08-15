@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlQalem.Services
 {
-    public class SubjectService : ISubjectService
+    public class SubjectService : InterfaceSubjectService
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -18,12 +18,12 @@ namespace AlQalem.Services
             _mapper = mapper;
         }
 
-        // Retrieve all subjects
+        
         public async Task<IEnumerable<SubjectDTO>> GetSubjectsAsync()
         {
             var subjects = await _context.Subjects
-                .Include(s => s.ClassSubjectTeachers) // Include related entities if needed
-                .Include(s => s.TeacherSubjects) // Include related entities if needed
+                .Include(s => s.ClassSubjectTeachers) 
+                .Include(s => s.TeacherSubjects) 
                 .ToListAsync();
             return _mapper.Map<IEnumerable<SubjectDTO>>(subjects);
         }
@@ -35,17 +35,17 @@ namespace AlQalem.Services
             return _mapper.Map<IEnumerable<SubjectDTO>>(subjects);
         }
 
-        // Retrieve a subject by ID
+        
         public async Task<SubjectDTO> GetSubjectByIdAsync(Guid id)
         {
             var subject = await _context.Subjects
-                .Include(s => s.ClassSubjectTeachers) // Include related entities if needed
-                .Include(s => s.TeacherSubjects) // Include related entities if needed
+                .Include(s => s.ClassSubjectTeachers) 
+                .Include(s => s.TeacherSubjects) 
                 .FirstOrDefaultAsync(s => s.SubjectId == id);
             return _mapper.Map<SubjectDTO>(subject);
         }
 
-        // Create a new subject
+        
         public async Task<SubjectDTO> CreateSubjectAsync(CreateSubjectDTO createSubjectDTO)
         {
             var subject = _mapper.Map<Subject>(createSubjectDTO);
@@ -54,7 +54,7 @@ namespace AlQalem.Services
             return _mapper.Map<SubjectDTO>(subject);
         }
 
-        // Update an existing subject
+        
         public async Task<SubjectDTO> UpdateSubjectAsync(Guid id, UpdateSubjectDTO updateSubjectDTO)
         {
             var subject = await _context.Subjects.FindAsync(id);
@@ -66,7 +66,7 @@ namespace AlQalem.Services
             return _mapper.Map<SubjectDTO>(subject);
         }
 
-        // Delete a subject
+        
         public async Task DeleteSubjectAsync(Guid id)
         {
             var subject = await _context.Subjects.FindAsync(id);

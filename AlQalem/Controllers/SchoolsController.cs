@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AlQalem.Enums;
+
 using AlQalem.Models;
 using AlQalem.DTOs.School;
+using AutoMapper;
 
 namespace AlQalem.Controllers
 {
@@ -9,12 +10,14 @@ namespace AlQalem.Controllers
     [ApiController]
     public class SchoolsController : ControllerBase
     {
-        private readonly ISchoolService _schoolService;
+        private readonly InterfaceSchoolService _schoolService;
+        private readonly IMapper _mapper;
         private readonly string _logoPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "SchoolLogo");
 
-        public SchoolsController(ISchoolService schoolService)
+        public SchoolsController(InterfaceSchoolService schoolService, IMapper mapper)
         {
             _schoolService = schoolService;
+            _mapper = mapper;
         }
 
         // GET: api/schools
@@ -22,7 +25,8 @@ namespace AlQalem.Controllers
         public async Task<ActionResult<IEnumerable<SchoolDTO>>> GetAllSchools()
         {
             var schools = await _schoolService.GetSchoolsAsync();
-            return Ok(schools);
+            var schoolDtos = _mapper.Map<IEnumerable<SchoolDTO>>(schools);
+            return Ok(schoolDtos);
         }
 
         // GET: api/schools/{id}
@@ -34,7 +38,8 @@ namespace AlQalem.Controllers
             {
                 return NotFound();
             }
-            return Ok(school);
+            var schoolDto = _mapper.Map<SchoolDTO>(school);
+            return Ok(schoolDto);
         }
 
         // POST: api/schools
@@ -43,7 +48,6 @@ namespace AlQalem.Controllers
         {
             try
             {
-                // معالجة حفظ الشعار
                 if (!Directory.Exists(_logoPath))
                     Directory.CreateDirectory(_logoPath);
 
@@ -60,24 +64,22 @@ namespace AlQalem.Controllers
                     }
                 }
 
-                // إنشاء كائن المدرسة
-                var schoolDto = new SchoolDTO
-                {
-                    Name = schoolCreateDto.Name,
-                    Type = (SchoolType)schoolCreateDto.Type,
+                
+                var schoolDto = _mapper.Map<SchoolDTO>(schoolCreateDto);
+                schoolDto.LogoPath = fileName;
 
-                    LogoPath = fileName
-                };
+                
+                var createdSchoolDto = await _schoolService.CreateSchoolAsync(schoolDto);
 
-                var createdSchool = await _schoolService.CreateSchoolAsync(schoolDto);
-
-                return CreatedAtAction(nameof(GetSchoolById), new { id = createdSchool.SchoolId }, createdSchool);
+                return CreatedAtAction(nameof(GetSchoolById), new { id = createdSchoolDto.SchoolId }, createdSchoolDto);
             }
             catch (Exception ex)
             {
                 return BadRequest($"حدث خطأ أثناء إنشاء المدرسة: {ex.Message}");
             }
         }
+
+
 
         // PUT: api/schools/{id}
         [HttpPut("{id}")]
@@ -88,6 +90,7 @@ namespace AlQalem.Controllers
                 return BadRequest("بيانات المدرسة غير صالحة.");
             }
 
+            var schoolEntity = _mapper.Map<School>(schoolUpdateDTO);
             var updatedSchool = await _schoolService.UpdateSchoolAsync(id, schoolUpdateDTO);
 
             if (updatedSchool == null)
@@ -110,9 +113,8 @@ namespace AlQalem.Controllers
         public async Task<IActionResult> GetAllSchoolsIncludingDeleted()
         {
             var schools = await _schoolService.GetAllSchoolsIncludingDeletedAsync();
-            return Ok(schools);
+            var schoolDtos = _mapper.Map<IEnumerable<SchoolDTO>>(schools);
+            return Ok(schoolDtos);
         }
-
-
     }
 }

@@ -4,7 +4,7 @@ using AlQalem.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-public class UserService : IUserService
+public class UserService : InterfaceUserService
 {
     private readonly ApplicationDbContext _context;
     private readonly IMapper _mapper;

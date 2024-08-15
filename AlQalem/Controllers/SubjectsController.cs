@@ -2,10 +2,7 @@
 using AlQalem.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace AlQalem.Controllers
 {
@@ -13,10 +10,10 @@ namespace AlQalem.Controllers
     [ApiController]
     public class SubjectsController : ControllerBase
     {
-        private readonly ISubjectService _subjectService;
+        private readonly InterfaceSubjectService _subjectService;
         private readonly IMapper _mapper;
 
-        public SubjectsController(ISubjectService subjectService, IMapper mapper)
+        public SubjectsController(InterfaceSubjectService subjectService, IMapper mapper)
         {
             _subjectService = subjectService;
             _mapper = mapper;

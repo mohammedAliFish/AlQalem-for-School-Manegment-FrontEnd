@@ -51,11 +51,11 @@ namespace AlQalem.Mappings
 
 
             CreateMap<CreateGradeDTO, Grade>()
-            .ForMember(dest => dest.GradeId, opt => opt.Ignore()); // تجاهل المعرف لأننا سنقوم بإنشائه في الخدمة
+            .ForMember(dest => dest.GradeId, opt => opt.Ignore());
 
             CreateMap<Grade, GradeDTO>();
 
-            CreateMap<CreateGradeDTO, GradeDTO>() // أضف هذا التكوين
+            CreateMap<CreateGradeDTO, GradeDTO>()   
                 .ReverseMap();
 
 

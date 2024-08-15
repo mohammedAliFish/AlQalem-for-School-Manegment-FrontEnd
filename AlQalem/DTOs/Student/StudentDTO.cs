@@ -9,9 +9,9 @@ namespace AlQalem.DTOs.Student
         public Guid StudentId { get; set; }
         [MaxLength(20)]
         public required string Name { get; set; }
-        public Guid ClassId { get; set; }
-        public Guid StatusId { get; set; }
-        public bool IsDeleted { get; set; }
+        public required Guid ClassId { get; set; }
+        public required Guid StatusId { get; set; }
+        public  bool IsDeleted { get; set; }
         public ICollection<StudentAttachmentDTO> StudentAttachments { get; set; }
 
 

@@ -1,6 +1,5 @@
 ﻿using AlQalem.Data;
 using AlQalem.DTOs.Grade;
-using AlQalem.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,9 +21,9 @@ namespace AlQalem.Services
         public async Task<IEnumerable<GradeDTO>> GetGradesAsync()
         {
             var grades = await _context.Grades
-                .Include(g => g.Student) // Include related entities if needed
-                .Include(g => g.Subject) // Include related entities if needed
-                .Include(g => g.AcademicYear) // Include related entities if needed
+                .Include(g => g.Student) 
+                .Include(g => g.Subject) 
+                .Include(g => g.AcademicYear) 
                 .ToListAsync();
             return _mapper.Map<IEnumerable<GradeDTO>>(grades);
         }
@@ -36,18 +35,18 @@ namespace AlQalem.Services
                 .ToListAsync();
             return _mapper.Map<IEnumerable<GradeDTO>>(grades);
         }
-        // Retrieve a grade by ID
+        
         public async Task<GradeDTO> GetGradeByIdAsync(Guid id)
         {
             var grade = await _context.Grades
-                .Include(g => g.Student) // Include related entities if needed
-                .Include(g => g.Subject) // Include related entities if needed
-                .Include(g => g.AcademicYear) // Include related entities if needed
+                .Include(g => g.Student) 
+                .Include(g => g.Subject) 
+                .Include(g => g.AcademicYear) 
                 .FirstOrDefaultAsync(g => g.GradeId == id);
             return _mapper.Map<GradeDTO>(grade);
         }
 
-        // Create a new grade
+        
         public async Task<GradeDTO> CreateGradeAsync(CreateGradeDTO createGradeDTO)
         {
             var grade = _mapper.Map<Grade>(createGradeDTO);
@@ -56,7 +55,7 @@ namespace AlQalem.Services
             return _mapper.Map<GradeDTO>(grade);
         }
 
-        // Update an existing grade
+        
         public async Task<GradeDTO> UpdateGradeAsync(Guid id, UpdateGradeDTO updateGradeDTO)
         {
             var grade = await _context.Grades.FindAsync(id);
@@ -68,7 +67,7 @@ namespace AlQalem.Services
             return _mapper.Map<GradeDTO>(grade);
         }
 
-        // Delete a grade
+       
         public async Task DeleteGradeAsync(Guid id)
         {
             var grade = await _context.Grades.FindAsync(id);

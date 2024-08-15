@@ -1,7 +1,7 @@
 ﻿using AlQalem.DTOs.User;
 
 
-public interface IUserService
+public interface InterfaceUserService
 {
     Task<IEnumerable<UserDTO>> GetUsersAsync();
 

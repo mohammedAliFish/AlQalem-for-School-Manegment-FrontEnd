@@ -2,12 +2,11 @@
 
 namespace AlQalem.DTOs.GradeLevel
 {
-    public class UpdateGradeLevelDTO
+    public class UpdateGradeLevelDTO: CreateGradeLevelDTO
     {
-        [Required]
-        public Guid GradeLevelId { get; set; }
+        
+        public required Guid GradeLevelId { get; set; }
 
-        [MaxLength(100)]
-        public string LevelName { get; set; }
+      
     }
 }

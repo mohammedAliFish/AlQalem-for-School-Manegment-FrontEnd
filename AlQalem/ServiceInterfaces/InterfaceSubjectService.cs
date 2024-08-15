@@ -1,7 +1,7 @@
 ﻿using AlQalem.DTOs.Subject;
 
 
-public interface ISubjectService
+public interface InterfaceSubjectService
 {
     Task<IEnumerable<SubjectDTO>> GetSubjectsAsync();
     Task<IEnumerable<SubjectDTO>> GetAllSubjectsAsync();

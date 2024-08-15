@@ -1,7 +1,7 @@
 ﻿using AlQalem.DTOs.Student;
 
 
-public interface IStudentService
+public interface InterfaceStudentService
 {
     Task<IEnumerable<StudentDTO>> GetStudentsAsync();
     Task<IEnumerable<StudentDTO>> GetAllStudentsAsync();

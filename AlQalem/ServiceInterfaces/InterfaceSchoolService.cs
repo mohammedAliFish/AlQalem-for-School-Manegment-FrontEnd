@@ -1,7 +1,7 @@
 ﻿using AlQalem.DTOs.School;
 
 
-public interface ISchoolService
+public interface InterfaceSchoolService
 {
     Task<IEnumerable<SchoolDTO>> GetSchoolsAsync();
     Task<IEnumerable<SchoolDTO>> GetAllSchoolsIncludingDeletedAsync();

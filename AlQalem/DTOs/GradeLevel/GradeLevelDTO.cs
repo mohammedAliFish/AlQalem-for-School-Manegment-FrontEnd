@@ -1,8 +1,11 @@
-﻿namespace AlQalem.DTOs.GradeLevel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AlQalem.DTOs.GradeLevel
 {
     public class GradeLevelDTO
     {
-        public Guid GradeLevelId { get; set; }
-        public string LevelName { get; set; }
+        public required Guid GradeLevelId { get; set; }
+        [MaxLength(30)]
+        public required string LevelName { get; set; }
     }
 }

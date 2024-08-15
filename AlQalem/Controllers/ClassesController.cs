@@ -1,6 +1,7 @@
 ﻿using AlQalem.DTOs.Class;
-using AlQalem.Services;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using AlQalem.Models;
 
 namespace AlQalem.Controllers
 {
@@ -8,30 +9,34 @@ namespace AlQalem.Controllers
     [ApiController]
     public class ClassesController : ControllerBase
     {
-        private readonly IClassService _classService;
+        private readonly InterfaceClassService _classService;
+        private readonly IMapper _mapper;
 
-        public ClassesController(IClassService classService)
+        public ClassesController(InterfaceClassService classService, IMapper mapper)
         {
             _classService = classService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClassDTO>>> GetClasses()
         {
             var classes = await _classService.GetAllClassesAsync();
-            return Ok(classes);
+            var classDtos = _mapper.Map<IEnumerable<ClassDTO>>(classes);
+            return Ok(classDtos);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ClassDTO>> GetClassById(Guid id)
         {
-            var classDto = await _classService.GetClassByIdAsync(id);
+            var classEntity = await _classService.GetClassByIdAsync(id);
 
-            if (classDto == null)
+            if (classEntity == null)
             {
                 return NotFound();
             }
 
+            var classDto = _mapper.Map<ClassDTO>(classEntity);
             return Ok(classDto);
         }
 
@@ -43,8 +48,11 @@ namespace AlQalem.Controllers
                 return BadRequest("بيانات الصف غير صالحة.");
             }
 
+            var classEntity = _mapper.Map<Class>(createClassDto);
             var createdClass = await _classService.CreateClassAsync(createClassDto);
-            return CreatedAtAction(nameof(GetClassById), new { id = createdClass.ClassId }, createdClass);
+
+            var createdClassDto = _mapper.Map<ClassDTO>(createdClass);
+            return CreatedAtAction(nameof(GetClassById), new { id = createdClassDto.ClassId }, createdClassDto);
         }
 
         [HttpPut("{id}")]
@@ -55,6 +63,7 @@ namespace AlQalem.Controllers
                 return BadRequest("Class ID mismatch.");
             }
 
+            var classEntity = _mapper.Map<Class>(updateClassDTO);
             var updatedClass = await _classService.UpdateClassAsync(id, updateClassDTO);
 
             if (updatedClass == null)
@@ -64,8 +73,6 @@ namespace AlQalem.Controllers
 
             return NoContent();
         }
-
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClass(Guid id)
@@ -78,7 +85,8 @@ namespace AlQalem.Controllers
         public async Task<IActionResult> GetAllSchoolsIncludingDeleted()
         {
             var classes = await _classService.GetAllClassesIncludingDeletedAsync();
-            return Ok(classes);
+            var classDtos = _mapper.Map<IEnumerable<ClassDTO>>(classes);
+            return Ok(classDtos);
         }
     }
 }

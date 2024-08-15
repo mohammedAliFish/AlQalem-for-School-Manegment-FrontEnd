@@ -1,5 +1,4 @@
 ﻿
-using AlQalem.Data;
 using AlQalem.Models;
 using Microsoft.EntityFrameworkCore;
 

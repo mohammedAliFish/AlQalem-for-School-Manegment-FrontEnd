@@ -4,7 +4,7 @@ namespace AlQalem.DTOs.School
 {
     public class UpdateSchoolDTO : CreateSchoolDTO
     {
-        public Guid SchoolId { get; set; }
+        public required Guid SchoolId { get; set; }
 
        
     }

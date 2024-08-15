@@ -1,8 +1,8 @@
 ﻿using AlQalem.DTOs.Class;
-using AlQalem.DTOs.School;
 
 
-public interface IClassService
+
+public interface InterfaceClassService
 {
     Task<IEnumerable<ClassDTO>> GetAllClassesAsync();
     Task<IEnumerable<ClassDTO>> GetAllClassesIncludingDeletedAsync();

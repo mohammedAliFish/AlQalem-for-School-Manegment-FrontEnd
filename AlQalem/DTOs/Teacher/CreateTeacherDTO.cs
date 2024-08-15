@@ -4,9 +4,9 @@ namespace AlQalem.DTOs.Teacher
 {
     public class CreateTeacherDTO
     {
-        [Required]
-        public Guid UserId { get; set; }
+        
+        public required Guid UserId { get; set; }
         [MaxLength(20)]
-        public string Name { get; set; }
+        public required string Name { get; set; }
     }
 }

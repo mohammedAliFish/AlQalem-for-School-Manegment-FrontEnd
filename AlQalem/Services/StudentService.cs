@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlQalem.Services
 {
-    public class StudentService : IStudentService
+    public class StudentService : InterfaceStudentService
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ namespace AlQalem.Services
             _mapper = mapper;
         }
 
-        // Retrieve all students
+        
         public async Task<IEnumerable<StudentDTO>> GetStudentsAsync()
         {
             var students = await _context.Students
@@ -35,7 +35,7 @@ namespace AlQalem.Services
             return _mapper.Map<IEnumerable<StudentDTO>>(students);
         }
 
-        // Retrieve a student by ID
+        
         public async Task<StudentDTO> GetStudentByIdAsync(Guid id)
         {
             var student = await _context.Students
@@ -44,7 +44,7 @@ namespace AlQalem.Services
             return _mapper.Map<StudentDTO>(student);
         }
 
-        // Create a new student
+        
 
         public async Task<StudentDTO> CreateStudentAsync(CreateStudentDto createStudentDto)
         {
@@ -65,7 +65,7 @@ namespace AlQalem.Services
             return _mapper.Map<StudentDTO>(student);
         }
 
-        // Delete a student
+        
         public async Task DeleteStudentAsync(Guid id)
         {
             var student = await _context.Students.FindAsync(id);

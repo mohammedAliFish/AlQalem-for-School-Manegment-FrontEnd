@@ -4,8 +4,8 @@ namespace AlQalem.DTOs.GradeLevel
 {
     public class CreateGradeLevelDTO
     {
-        [Required]
-        [MaxLength(100)]
-        public string LevelName { get; set; }
+        
+        [MaxLength(30)]
+        public required string LevelName { get; set; }
     }
 }

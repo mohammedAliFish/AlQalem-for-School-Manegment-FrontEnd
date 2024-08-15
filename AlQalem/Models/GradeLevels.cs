@@ -2,11 +2,11 @@
 {
     public class GradeLevels
     {
-        public Guid GradeLevelId { get; set; } // Primary Key
+        public Guid GradeLevelId { get; set; } 
         public string Name { get; set; }
 
-        // Navigation Properties
-        public ICollection<Class> Classes { get; set; } // One GradeLevel to Many Classes
-        public ICollection<Grade> Grades { get; set; } // One GradeLevel to Many Grade
+      
+        public ICollection<Class> Classes { get; set; }
+        public ICollection<Grade> Grades { get; set; }
     }
 }

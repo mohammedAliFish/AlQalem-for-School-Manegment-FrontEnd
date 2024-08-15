@@ -1,6 +1,6 @@
 ﻿using AlQalem.DTOs.Teacher;
 
-public interface ITeacherService
+public interface InterfaceTeacherService
 {
     Task<IEnumerable<TeacherDTO>> GetTeachersAsync();
 

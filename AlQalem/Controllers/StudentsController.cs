@@ -1,6 +1,7 @@
 ﻿using AlQalem.DTOs.Student;
+using AlQalem.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace AlQalem.Controllers
 {
@@ -8,25 +9,29 @@ namespace AlQalem.Controllers
     [ApiController]
     public class StudentsController : ControllerBase
     {
-        private readonly IStudentService _studentService;
+        private readonly InterfaceStudentService _studentService;
+        private readonly IMapper _mapper;
 
-        public StudentsController(IStudentService studentService)
+        public StudentsController(InterfaceStudentService studentService, IMapper mapper)
         {
             _studentService = studentService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudents()
         {
             var students = await _studentService.GetStudentsAsync();
-            return Ok(students);
+            var studentDtos = _mapper.Map<IEnumerable<StudentDTO>>(students);
+            return Ok(studentDtos);
         }
 
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<StudentDTO>>> GetAllStudents()
         {
             var students = await _studentService.GetAllStudentsAsync();
-            return Ok(students);
+            var studentDtos = _mapper.Map<IEnumerable<StudentDTO>>(students);
+            return Ok(studentDtos);
         }
 
         [HttpGet("{id}")]
@@ -39,7 +44,8 @@ namespace AlQalem.Controllers
                 return NotFound();
             }
 
-            return Ok(student);
+            var studentDto = _mapper.Map<StudentDTO>(student);
+            return Ok(studentDto);
         }
 
         [HttpPost]
@@ -50,8 +56,11 @@ namespace AlQalem.Controllers
                 return BadRequest(ModelState);
             }
 
+            var student = _mapper.Map<Student>(createStudentDto);
             var createdStudent = await _studentService.CreateStudentAsync(createStudentDto);
-            return CreatedAtAction(nameof(GetStudent), new { id = createdStudent.StudentId }, createdStudent);
+            var createdStudentDto = _mapper.Map<StudentDTO>(createdStudent);
+
+            return CreatedAtAction(nameof(GetStudent), new { id = createdStudentDto.StudentId }, createdStudentDto);
         }
 
         [HttpPut("{id}")]
@@ -62,6 +71,7 @@ namespace AlQalem.Controllers
                 return BadRequest("Student ID mismatch.");
             }
 
+            var student = _mapper.Map<Student>(updateStudentDTO);
             var updatedStudent = await _studentService.UpdateStudentAsync(id, updateStudentDTO);
 
             if (updatedStudent == null)

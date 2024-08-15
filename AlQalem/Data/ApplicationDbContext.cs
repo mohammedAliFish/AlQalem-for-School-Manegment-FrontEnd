@@ -1,7 +1,7 @@
 ﻿using AlQalem.Models;
 using AlQalem.Seeders;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
+
 
 namespace AlQalem.Data
 {
@@ -196,8 +196,8 @@ namespace AlQalem.Data
             PermissionSeeder.Seed(modelBuilder);
             RolePermissionSeeder.Seed(modelBuilder);
             StudentStatusSeeder.Seed(modelBuilder);
-            AcademicYearSeeder.Seed(modelBuilder);
             GradeLevelSeeder.Seed(modelBuilder);
+            AcademicYearSeeder.Seed(modelBuilder);
         }
 
 

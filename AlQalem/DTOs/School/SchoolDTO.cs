@@ -10,8 +10,8 @@ namespace AlQalem.DTOs.School
         [MaxLength(20)]
         public required string Name { get; set; }
         public required string LogoPath { get; set; }
-
-        public SchoolType Type { get; set; }
+        
+        public required SchoolType Type { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

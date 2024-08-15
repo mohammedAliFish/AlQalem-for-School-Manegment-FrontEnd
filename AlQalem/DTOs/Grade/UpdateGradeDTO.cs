@@ -2,6 +2,6 @@
 {
     public class UpdateGradeDTO : CreateGradeDTO
     {
-        public Guid GradeId { get; set; }
+        public required Guid GradeId { get; set; }
     }
 }

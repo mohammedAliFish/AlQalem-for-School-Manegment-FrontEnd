@@ -4,7 +4,7 @@ namespace AlQalem.DTOs.Subject
 {
     public class SubjectDTO
     {
-        public Guid SubjectId { get; set; }
+        public required Guid SubjectId { get; set; }
         [MaxLength(20)]
         public required string Name { get; set; }
         public bool IsDeleted { get; set; }
