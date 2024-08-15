@@ -11,7 +11,7 @@ builder.Services.AddScoped<InterfaceClassService, ClassService>();
 builder.Services.AddScoped<InterfaceTeacherService, TeacherService>();
 builder.Services.AddScoped<InterfaceStudentService, StudentService>();
 builder.Services.AddScoped<InterfaceSubjectService, SubjectService>();
-builder.Services.AddScoped<IGradeService, GradeService>();
+builder.Services.AddScoped<InterfaceGradeService, GradeService>();
 
 
 builder.Services.AddControllers();

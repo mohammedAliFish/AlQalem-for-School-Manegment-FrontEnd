@@ -18,7 +18,7 @@ namespace AlQalem.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("allClasses")]
         public async Task<ActionResult<IEnumerable<ClassDTO>>> GetClasses()
         {
             var classes = await _classService.GetAllClassesAsync();
@@ -26,7 +26,7 @@ namespace AlQalem.Controllers
             return Ok(classDtos);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("classesId{id}")]
         public async Task<ActionResult<ClassDTO>> GetClassById(Guid id)
         {
             var classEntity = await _classService.GetClassByIdAsync(id);
@@ -40,7 +40,7 @@ namespace AlQalem.Controllers
             return Ok(classDto);
         }
 
-        [HttpPost]
+        [HttpPost("createClass")]
         public async Task<ActionResult<ClassDTO>> CreateClass([FromBody] CreateClassDTO createClassDto)
         {
             if (createClassDto == null)
@@ -55,7 +55,7 @@ namespace AlQalem.Controllers
             return CreatedAtAction(nameof(GetClassById), new { id = createdClassDto.ClassId }, createdClassDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("updateClass{id}")]
         public async Task<IActionResult> UpdateClass(Guid id, [FromBody] UpdateClassDTO updateClassDTO)
         {
             if (id != updateClassDTO.ClassId)
@@ -74,14 +74,14 @@ namespace AlQalem.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteClass{id}")]
         public async Task<IActionResult> DeleteClass(Guid id)
         {
             await _classService.DeleteClassAsync(id);
             return NoContent();
         }
 
-        [HttpGet("all")]
+        [HttpGet("allClassesEvenDeleted")]
         public async Task<IActionResult> GetAllSchoolsIncludingDeleted()
         {
             var classes = await _classService.GetAllClassesIncludingDeletedAsync();

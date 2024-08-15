@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlQalem.Services
 {
-    public class GradeService : IGradeService
+    public class GradeService : InterfaceGradeService
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;

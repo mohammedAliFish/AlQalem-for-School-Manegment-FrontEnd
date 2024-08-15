@@ -1,4 +1,5 @@
-﻿using AlQalem.DTOs.Grade;
+﻿
+using AlQalem.DTOs.Grade;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,23 +9,23 @@ namespace AlQalem.Controllers
     [ApiController]
     public class GradesController : ControllerBase
     {
-        private readonly IGradeService _gradeService;
+        private readonly InterfaceGradeService _gradeService;
         private readonly IMapper _mapper;
 
-        public GradesController(IGradeService gradeService, IMapper mapper)
+        public GradesController(InterfaceGradeService gradeService, IMapper mapper)
         {
             _gradeService = gradeService;
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("allGrades")]
         public async Task<ActionResult<IEnumerable<GradeDTO>>> GetGrades()
         {
             var grades = await _gradeService.GetGradesAsync();
             return Ok(grades);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("gradeId{id}")]
         public async Task<ActionResult<GradeDTO>> GetGrade(Guid id)
         {
             var grade = await _gradeService.GetGradeByIdAsync(id);
@@ -37,7 +38,7 @@ namespace AlQalem.Controllers
             return Ok(grade);
         }
 
-        [HttpPost]
+        [HttpPost("createGrades")]
         public async Task<ActionResult<GradeDTO>> CreateGrade([FromBody] CreateGradeDTO createGradeDto)
         {
             if (!ModelState.IsValid)
@@ -56,7 +57,7 @@ namespace AlQalem.Controllers
             return CreatedAtAction(nameof(GetGrade), new { id = gradeDto.GradeId }, gradeDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("gradeUpdate{id}")]
         public async Task<IActionResult> UpdateGrade(Guid id, [FromBody] UpdateGradeDTO updateGradeDto)
         {
             if (id != updateGradeDto.GradeId)
@@ -78,11 +79,18 @@ namespace AlQalem.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete{id}")]
         public async Task<IActionResult> DeleteGrade(Guid id)
         {
             await _gradeService.DeleteGradeAsync(id);
             return NoContent();
+        }
+        [HttpGet("getAllGradesEvenDeleted")]
+        public async Task<IActionResult> GetAllGradesAsync()
+        {
+            var grades = await _gradeService.GetAllGradesAsync();
+            var gradesDtos = _mapper.Map<IEnumerable<GradeDTO>>(grades);
+            return Ok(gradesDtos);
         }
     }
 }

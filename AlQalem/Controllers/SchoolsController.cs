@@ -20,8 +20,8 @@ namespace AlQalem.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/schools
-        [HttpGet]
+        
+        [HttpGet("allSchool")]
         public async Task<ActionResult<IEnumerable<SchoolDTO>>> GetAllSchools()
         {
             var schools = await _schoolService.GetSchoolsAsync();
@@ -29,8 +29,8 @@ namespace AlQalem.Controllers
             return Ok(schoolDtos);
         }
 
-        // GET: api/schools/{id}
-        [HttpGet("{id}")]
+        
+        [HttpGet("schoolId{id}")]
         public async Task<ActionResult<SchoolDTO>> GetSchoolById(Guid id)
         {
             var school = await _schoolService.GetSchoolByIdAsync(id);
@@ -42,8 +42,8 @@ namespace AlQalem.Controllers
             return Ok(schoolDto);
         }
 
-        // POST: api/schools
-        [HttpPost]
+        
+        [HttpPost("createSchool")]
         public async Task<ActionResult<SchoolDTO>> CreateSchool([FromForm] CreateSchoolDTO schoolCreateDto)
         {
             try
@@ -81,8 +81,8 @@ namespace AlQalem.Controllers
 
 
 
-        // PUT: api/schools/{id}
-        [HttpPut("{id}")]
+        
+        [HttpPut("updateSchool{id}")]
         public async Task<IActionResult> UpdateSchool(Guid id, [FromForm] UpdateSchoolDTO schoolUpdateDTO)
         {
             if (schoolUpdateDTO == null)
@@ -101,15 +101,15 @@ namespace AlQalem.Controllers
             return NoContent();
         }
 
-        // DELETE: api/schools/{id}
-        [HttpDelete("{id}")]
+        
+        [HttpDelete("delete{id}")]
         public async Task<IActionResult> DeleteSchool(Guid id)
         {
             await _schoolService.DeleteSchoolAsync(id);
             return NoContent();
         }
 
-        [HttpGet("all")]
+        [HttpGet("allSchoolEvenDeleted")]
         public async Task<IActionResult> GetAllSchoolsIncludingDeleted()
         {
             var schools = await _schoolService.GetAllSchoolsIncludingDeletedAsync();

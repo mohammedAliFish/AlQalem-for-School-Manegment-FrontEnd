@@ -19,8 +19,8 @@ namespace AlQalem.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/users
-        [HttpGet]
+        
+        [HttpGet("allUseres")]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
         {
             var users = await _userService.GetUsersAsync();
@@ -28,8 +28,8 @@ namespace AlQalem.Controllers
             return Ok(userDtos);
         }
 
-        // GET: api/users/all
-        [HttpGet("all")]
+        
+        [HttpGet("allUseresEvenDeleted")]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
@@ -37,8 +37,8 @@ namespace AlQalem.Controllers
             return Ok(userDtos);
         }
 
-        // GET: api/users/{id}
-        [HttpGet("{id}")]
+        
+        [HttpGet("getUserById{id}")]
         public async Task<ActionResult<UserDTO>> GetUserById(Guid id)
         {
             var user = await _userService.GetUserByIdAsync(id);
@@ -50,8 +50,8 @@ namespace AlQalem.Controllers
             return Ok(userDto);
         }
 
-        // POST: api/users
-        [HttpPost]
+        
+        [HttpPost("createUser")]
         public async Task<ActionResult<UserDTO>> CreateUser(CreateUserDTO createUserDTO)
         {
             var user = _mapper.Map<User>(createUserDTO); 
@@ -60,8 +60,8 @@ namespace AlQalem.Controllers
             return CreatedAtAction(nameof(GetUserById), new { id = createdUserDto.UserId }, createdUserDto);
         }
 
-        // PUT: api/users/{id}
-        [HttpPut("{id}")]
+        
+        [HttpPut("updateUser{id}")]
         public async Task<ActionResult<UserDTO>> UpdateUser(Guid id, UpdateUserDTO updateUserDTO)
         {
             if (id != updateUserDTO.UserId)
@@ -79,8 +79,8 @@ namespace AlQalem.Controllers
             return Ok(updatedUserDto);
         }
 
-        // DELETE: api/users/{id}
-        [HttpDelete("{id}")]
+        
+        [HttpDelete("delete{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var user = await _userService.GetUserByIdAsync(id);

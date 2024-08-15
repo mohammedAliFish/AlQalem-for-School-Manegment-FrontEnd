@@ -19,7 +19,7 @@ namespace AlQalem.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("allSubjects")]
         public async Task<ActionResult<IEnumerable<SubjectDTO>>> GetSubjects()
         {
             var subjects = await _subjectService.GetSubjectsAsync();
@@ -27,7 +27,7 @@ namespace AlQalem.Controllers
             return Ok(subjectDtos);
         }
 
-        [HttpGet("all")]
+        [HttpGet("allSubjectsEvenDeleted")]
         public async Task<ActionResult<IEnumerable<SubjectDTO>>> GetSubjectsAll()
         {
             var subjects = await _subjectService.GetAllSubjectsAsync();
@@ -35,7 +35,7 @@ namespace AlQalem.Controllers
             return Ok(subjectDtos);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("subjectId{id}")]
         public async Task<ActionResult<SubjectDTO>> GetSubject(Guid id)
         {
             var subject = await _subjectService.GetSubjectByIdAsync(id);
@@ -49,7 +49,8 @@ namespace AlQalem.Controllers
             return Ok(subjectDto);
         }
 
-        [HttpPost]
+        [HttpPost("createSubject")]
+
         public async Task<ActionResult<SubjectDTO>> CreateSubject(CreateSubjectDTO createSubjectDto)
         {
             if (!ModelState.IsValid)
@@ -64,7 +65,7 @@ namespace AlQalem.Controllers
             return CreatedAtAction(nameof(GetSubject), new { id = createdSubjectDto.SubjectId }, createdSubjectDto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("updateSubject{id}")]
         public async Task<IActionResult> UpdateSubject(Guid id, UpdateSubjectDTO updateSubjectDto)
         {
             if (id != updateSubjectDto.SubjectId)
@@ -83,23 +84,23 @@ namespace AlQalem.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete{id}")]
         public async Task<IActionResult> DeleteSubjectAsync(Guid id)
         {
-            // تحقق من وجود الموضوع
+            
             var subject = await _subjectService.GetSubjectByIdAsync(id);
             if (subject == null)
             {
                 return NotFound("Subject not found.");
             }
 
-            // تحقق من وجود ارتباطات مع الفصول أو الدرجات
+            
             if (await _subjectService.HasClassSubjectTeachersAsync(id) || await _subjectService.HasGradesAsync(id))
             {
                 return BadRequest("Cannot delete the subject as it is linked to classes or grades.");
             }
 
-            // تعيين خاصية IsDeleted بدلاً من حذف الكائن فعليًا
+            
             await _subjectService.DeleteSubjectAsync(id);
             return NoContent();
         }
