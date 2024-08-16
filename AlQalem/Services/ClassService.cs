@@ -18,15 +18,7 @@ namespace AlQalem.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ClassDTO>> GetAllClassesIncludingDeletedAsync()
-        {
-            var classes = await _context.Classes
-                                        .IgnoreQueryFilters()
-                                        .ToListAsync();
-
-            
-            return _mapper.Map<IEnumerable<ClassDTO>>(classes);
-        }
+       
 
         
         public async Task<IEnumerable<ClassDTO>> GetAllClassesAsync()

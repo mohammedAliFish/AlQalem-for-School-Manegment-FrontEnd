@@ -15,7 +15,7 @@ namespace AlQalem.Controllers
             _context = context;
         }
 
-        [HttpGet("mainPage")]
+        [HttpGet]
         public async Task<IActionResult> GetMainPageData()
         {
             var numberOfClasses = await _context.Classes.CountAsync();

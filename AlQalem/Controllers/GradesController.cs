@@ -18,14 +18,14 @@ namespace AlQalem.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("allGrades")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<GradeDTO>>> GetGrades()
         {
             var grades = await _gradeService.GetGradesAsync();
             return Ok(grades);
         }
 
-        [HttpGet("gradeId{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<GradeDTO>> GetGrade(Guid id)
         {
             var grade = await _gradeService.GetGradeByIdAsync(id);
@@ -38,7 +38,7 @@ namespace AlQalem.Controllers
             return Ok(grade);
         }
 
-        [HttpPost("createGrades")]
+        [HttpPost]
         public async Task<ActionResult<GradeDTO>> CreateGrade([FromBody] CreateGradeDTO createGradeDto)
         {
             if (!ModelState.IsValid)
@@ -57,7 +57,7 @@ namespace AlQalem.Controllers
             return CreatedAtAction(nameof(GetGrade), new { id = gradeDto.GradeId }, gradeDto);
         }
 
-        [HttpPut("gradeUpdate{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateGrade(Guid id, [FromBody] UpdateGradeDTO updateGradeDto)
         {
             if (id != updateGradeDto.GradeId)
@@ -79,18 +79,12 @@ namespace AlQalem.Controllers
             return NoContent();
         }
 
-        [HttpDelete("delete{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGrade(Guid id)
         {
             await _gradeService.DeleteGradeAsync(id);
             return NoContent();
         }
-        [HttpGet("getAllGradesEvenDeleted")]
-        public async Task<IActionResult> GetAllGradesAsync()
-        {
-            var grades = await _gradeService.GetAllGradesAsync();
-            var gradesDtos = _mapper.Map<IEnumerable<GradeDTO>>(grades);
-            return Ok(gradesDtos);
-        }
+       
     }
 }

@@ -4,7 +4,7 @@
 public interface InterfaceSubjectService
 {
     Task<IEnumerable<SubjectDTO>> GetSubjectsAsync();
-    Task<IEnumerable<SubjectDTO>> GetAllSubjectsAsync();
+
     Task<SubjectDTO> GetSubjectByIdAsync(Guid id);
     Task<SubjectDTO> CreateSubjectAsync(CreateSubjectDTO createSubjectDTO);
     Task<SubjectDTO> UpdateSubjectAsync(Guid id, UpdateSubjectDTO updateSubjectDTO);

@@ -1,9 +1,9 @@
 ﻿using AlQalem.Data;
 using AlQalem.DTOs.School;
-using AlQalem.Exceptions.SchoolExceptions;
 using AlQalem.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using AlQalem.Exceptions.SchoolExceptions;
 
 namespace AlQalem.Services
 {
@@ -18,15 +18,7 @@ namespace AlQalem.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<SchoolDTO>> GetAllSchoolsIncludingDeletedAsync()
-        {
-            var schools = await _context.Schools
-                                        .IgnoreQueryFilters() 
-                                        .ToListAsync();
-
-           
-            return _mapper.Map<IEnumerable<SchoolDTO>>(schools);
-        }
+      
 
 
 
@@ -56,6 +48,10 @@ namespace AlQalem.Services
                                            IsDeleted = school.IsDeleted
                                        })
                                        .FirstOrDefaultAsync();
+            if (school == null)
+            {
+                throw new SchoolNotFoundException();
+            }
 
             return school;
         }
@@ -66,9 +62,10 @@ namespace AlQalem.Services
         {
             
             bool isSchoolNameExists = _context.Schools.Any(s => s.Name == schoolDto.Name);
-
             if (isSchoolNameExists)
-                throw new SchoolNotFoundException();
+                throw new SchoolNameAlreadyExistsException();
+
+
 
             var school = new School
             {
@@ -88,7 +85,7 @@ namespace AlQalem.Services
         public async Task<SchoolDTO> UpdateSchoolAsync(Guid id, UpdateSchoolDTO schoolUpdateDTO)
         {
             var school = await _context.Schools.FindAsync(id);
-            if (school == null) return null;
+            if (school == null) throw new SchoolNotFoundException();
 
             
             school.Name = schoolUpdateDTO.Name;
@@ -113,9 +110,9 @@ namespace AlQalem.Services
                     }
                     school.LogoPath = uniqueFileName;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    throw new Exception("حدث خطأ أثناء تحميل الشعار: " + ex.Message);
+                    throw new LogoUploadException();
                 }
             }
 

@@ -19,7 +19,7 @@ namespace AlQalem.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("allSubjects")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<SubjectDTO>>> GetSubjects()
         {
             var subjects = await _subjectService.GetSubjectsAsync();
@@ -27,15 +27,9 @@ namespace AlQalem.Controllers
             return Ok(subjectDtos);
         }
 
-        [HttpGet("allSubjectsEvenDeleted")]
-        public async Task<ActionResult<IEnumerable<SubjectDTO>>> GetSubjectsAll()
-        {
-            var subjects = await _subjectService.GetAllSubjectsAsync();
-            var subjectDtos = _mapper.Map<IEnumerable<SubjectDTO>>(subjects);
-            return Ok(subjectDtos);
-        }
+      
 
-        [HttpGet("subjectId{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<SubjectDTO>> GetSubject(Guid id)
         {
             var subject = await _subjectService.GetSubjectByIdAsync(id);
@@ -49,7 +43,7 @@ namespace AlQalem.Controllers
             return Ok(subjectDto);
         }
 
-        [HttpPost("createSubject")]
+        [HttpPost]
 
         public async Task<ActionResult<SubjectDTO>> CreateSubject(CreateSubjectDTO createSubjectDto)
         {
@@ -65,7 +59,7 @@ namespace AlQalem.Controllers
             return CreatedAtAction(nameof(GetSubject), new { id = createdSubjectDto.SubjectId }, createdSubjectDto);
         }
 
-        [HttpPut("updateSubject{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSubject(Guid id, UpdateSubjectDTO updateSubjectDto)
         {
             if (id != updateSubjectDto.SubjectId)
@@ -84,7 +78,7 @@ namespace AlQalem.Controllers
             return NoContent();
         }
 
-        [HttpDelete("delete{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSubjectAsync(Guid id)
         {
             

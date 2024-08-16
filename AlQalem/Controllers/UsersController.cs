@@ -20,7 +20,7 @@ namespace AlQalem.Controllers
         }
 
         
-        [HttpGet("allUseres")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
         {
             var users = await _userService.GetUsersAsync();
@@ -29,16 +29,10 @@ namespace AlQalem.Controllers
         }
 
         
-        [HttpGet("allUseresEvenDeleted")]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
-        {
-            var users = await _userService.GetAllUsersAsync();
-            var userDtos = _mapper.Map<IEnumerable<UserDTO>>(users); 
-            return Ok(userDtos);
-        }
+       
 
         
-        [HttpGet("getUserById{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<UserDTO>> GetUserById(Guid id)
         {
             var user = await _userService.GetUserByIdAsync(id);
@@ -51,7 +45,7 @@ namespace AlQalem.Controllers
         }
 
         
-        [HttpPost("createUser")]
+        [HttpPost]
         public async Task<ActionResult<UserDTO>> CreateUser(CreateUserDTO createUserDTO)
         {
             var user = _mapper.Map<User>(createUserDTO); 
@@ -61,7 +55,7 @@ namespace AlQalem.Controllers
         }
 
         
-        [HttpPut("updateUser{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<UserDTO>> UpdateUser(Guid id, UpdateUserDTO updateUserDTO)
         {
             if (id != updateUserDTO.UserId)
@@ -80,7 +74,7 @@ namespace AlQalem.Controllers
         }
 
         
-        [HttpDelete("delete{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var user = await _userService.GetUserByIdAsync(id);

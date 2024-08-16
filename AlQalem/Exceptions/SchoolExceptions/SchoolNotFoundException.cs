@@ -1,8 +1,10 @@
 ﻿namespace AlQalem.Exceptions.SchoolExceptions
 {
-    public class SchoolNotFoundException : NotFoundExcepion
+    public class SchoolNotFoundException : Exception
     {
-        public SchoolNotFoundException(string message = "SchoolNotFound")
-        { }
+        
+        public SchoolNotFoundException(string message="المدرسه غير موجودة"): base(message) {}
+
+  
     }
 }

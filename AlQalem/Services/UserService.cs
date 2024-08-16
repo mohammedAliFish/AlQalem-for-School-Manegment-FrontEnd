@@ -24,11 +24,7 @@ public class UserService : InterfaceUserService
         return _mapper.Map<IEnumerable<UserDTO>>(users);
     }
 
-    public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
-    {
-        var users = await _context.Users.IgnoreQueryFilters().ToListAsync();
-        return _mapper.Map<IEnumerable<UserDTO>>(users);
-    }
+   
 
     public async Task<UserDTO> GetUserByIdAsync(Guid id)
     {

@@ -27,13 +27,7 @@ namespace AlQalem.Services
                 .ToListAsync();
             return _mapper.Map<IEnumerable<SubjectDTO>>(subjects);
         }
-        public async Task<IEnumerable<SubjectDTO>> GetAllSubjectsAsync()
-        {
-            var subjects = await _context.Subjects.IgnoreQueryFilters()
-               
-                .ToListAsync();
-            return _mapper.Map<IEnumerable<SubjectDTO>>(subjects);
-        }
+       
 
         
         public async Task<SubjectDTO> GetSubjectByIdAsync(Guid id)

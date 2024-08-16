@@ -28,13 +28,7 @@ namespace AlQalem.Services
             return _mapper.Map<IEnumerable<GradeDTO>>(grades);
         }
 
-        public async Task<IEnumerable<GradeDTO>> GetAllGradesAsync()
-        {
-            var grades = await _context.Grades.IgnoreQueryFilters()
-              
-                .ToListAsync();
-            return _mapper.Map<IEnumerable<GradeDTO>>(grades);
-        }
+      
         
         public async Task<GradeDTO> GetGradeByIdAsync(Guid id)
         {

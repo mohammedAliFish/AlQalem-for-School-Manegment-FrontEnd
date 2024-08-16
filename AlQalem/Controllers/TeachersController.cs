@@ -18,15 +18,15 @@ namespace AlQalem.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("allTeachers")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<TeacherDTO>>> GetTeachers()
         {
-            var teachers = await _teacherService.GetAllTeachersAsync();
+            var teachers = await _teacherService.GetTeachersAsync();
             var teacherDTOs = _mapper.Map<IEnumerable<TeacherDTO>>(teachers);
             return Ok(teacherDTOs);
         }
 
-        [HttpGet("teacherId{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<TeacherDTO>> GetTeacher(Guid id)
         {
             var teacher = await _teacherService.GetTeacherByIdAsync(id);
@@ -40,7 +40,7 @@ namespace AlQalem.Controllers
             return Ok(teacherDTO);
         }
 
-        [HttpPost("createTeacher")]
+        [HttpPost]
 
         public async Task<IActionResult> CreateTeacher([FromBody] CreateTeacherDTO createTeacherDTO)
         {
@@ -62,7 +62,7 @@ namespace AlQalem.Controllers
 
 
 
-        [HttpPut("updateId{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTeacher(Guid id, [FromBody] UpdateTeacherDTO updateTeacherDTO)
         {
             if (id != updateTeacherDTO.TeacherId)
@@ -87,7 +87,7 @@ namespace AlQalem.Controllers
         }
 
 
-        [HttpDelete("deleteTeacher{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacher(Guid id)
         {
             var teacher = await _teacherService.GetTeacherByIdAsync(id);
@@ -100,11 +100,6 @@ namespace AlQalem.Controllers
             return NoContent();
         }
 
-        [HttpGet("allTeacherEvenDeleted")]
-        public async Task<IActionResult> GetAllTeachersAsync()
-        {
-            var teachers = await _teacherService.GetAllTeachersAsync();
-            return Ok(teachers);
-        }
+       
     }
 }

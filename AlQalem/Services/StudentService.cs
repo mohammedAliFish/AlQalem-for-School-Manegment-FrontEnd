@@ -27,13 +27,7 @@ namespace AlQalem.Services
             return _mapper.Map<IEnumerable<StudentDTO>>(students);
         }
 
-        public async Task<IEnumerable<StudentDTO>> GetAllStudentsAsync()
-        {
-            var students = await _context.Students.IgnoreQueryFilters()
-                
-                .ToListAsync();
-            return _mapper.Map<IEnumerable<StudentDTO>>(students);
-        }
+      
 
         
         public async Task<StudentDTO> GetStudentByIdAsync(Guid id)

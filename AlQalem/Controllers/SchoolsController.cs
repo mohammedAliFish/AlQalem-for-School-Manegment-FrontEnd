@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
 using AlQalem.Models;
 using AlQalem.DTOs.School;
 using AutoMapper;
+using AlQalem.Exceptions.SchoolExceptions;
 
 namespace AlQalem.Controllers
 {
@@ -21,7 +21,7 @@ namespace AlQalem.Controllers
         }
 
         
-        [HttpGet("allSchool")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<SchoolDTO>>> GetAllSchools()
         {
             var schools = await _schoolService.GetSchoolsAsync();
@@ -29,21 +29,21 @@ namespace AlQalem.Controllers
             return Ok(schoolDtos);
         }
 
-        
-        [HttpGet("schoolId{id}")]
+
+        [HttpGet("{id}")]
         public async Task<ActionResult<SchoolDTO>> GetSchoolById(Guid id)
         {
             var school = await _schoolService.GetSchoolByIdAsync(id);
             if (school == null)
             {
-                return NotFound();
+                throw new SchoolNotFoundException();
             }
             var schoolDto = _mapper.Map<SchoolDTO>(school);
             return Ok(schoolDto);
         }
 
         
-        [HttpPost("createSchool")]
+        [HttpPost]
         public async Task<ActionResult<SchoolDTO>> CreateSchool([FromForm] CreateSchoolDTO schoolCreateDto)
         {
             try
@@ -73,21 +73,21 @@ namespace AlQalem.Controllers
 
                 return CreatedAtAction(nameof(GetSchoolById), new { id = createdSchoolDto.SchoolId }, createdSchoolDto);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return BadRequest($"حدث خطأ أثناء إنشاء المدرسة: {ex.Message}");
+                throw new SchoolCreationException();
             }
         }
 
 
 
         
-        [HttpPut("updateSchool{id}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateSchool(Guid id, [FromForm] UpdateSchoolDTO schoolUpdateDTO)
         {
             if (schoolUpdateDTO == null)
             {
-                return BadRequest("بيانات المدرسة غير صالحة.");
+                throw new InvalidSchoolDataException();
             }
 
             var schoolEntity = _mapper.Map<School>(schoolUpdateDTO);
@@ -95,26 +95,20 @@ namespace AlQalem.Controllers
 
             if (updatedSchool == null)
             {
-                return NotFound("لم يتم العثور على المدرسة.");
+                throw new SchoolNotFoundException();
             }
 
             return NoContent();
         }
 
         
-        [HttpDelete("delete{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSchool(Guid id)
         {
             await _schoolService.DeleteSchoolAsync(id);
             return NoContent();
         }
 
-        [HttpGet("allSchoolEvenDeleted")]
-        public async Task<IActionResult> GetAllSchoolsIncludingDeleted()
-        {
-            var schools = await _schoolService.GetAllSchoolsIncludingDeletedAsync();
-            var schoolDtos = _mapper.Map<IEnumerable<SchoolDTO>>(schools);
-            return Ok(schoolDtos);
-        }
+       
     }
 }

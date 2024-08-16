@@ -4,7 +4,7 @@ public interface InterfaceTeacherService
 {
     Task<IEnumerable<TeacherDTO>> GetTeachersAsync();
 
-    Task<IEnumerable<TeacherDTO>> GetAllTeachersAsync();
+   
     Task<TeacherDTO> GetTeacherByIdAsync(Guid id);
     Task<TeacherDTO> CreateTeacherAsync(CreateTeacherDTO teacherDto);
     Task<TeacherDTO> UpdateTeacherAsync(Guid id, UpdateTeacherDTO teacherDto);

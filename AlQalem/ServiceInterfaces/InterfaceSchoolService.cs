@@ -4,7 +4,7 @@
 public interface InterfaceSchoolService
 {
     Task<IEnumerable<SchoolDTO>> GetSchoolsAsync();
-    Task<IEnumerable<SchoolDTO>> GetAllSchoolsIncludingDeletedAsync();
+    
     Task<SchoolDTO> GetSchoolByIdAsync(Guid id);
     Task<SchoolDTO> CreateSchoolAsync(SchoolDTO schoolDto);
     Task<SchoolDTO> UpdateSchoolAsync(Guid id, UpdateSchoolDTO schoolUpdateDTO);

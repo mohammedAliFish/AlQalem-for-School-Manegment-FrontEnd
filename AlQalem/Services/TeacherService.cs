@@ -29,11 +29,7 @@ namespace AlQalem.Services
             return _mapper.Map<IEnumerable<TeacherDTO>>(teachers);
         }
 
-        public async Task<IEnumerable<TeacherDTO>> GetAllTeachersAsync()
-        {
-            var teachers = await _context.Teachers.IgnoreQueryFilters().ToListAsync();
-            return _mapper.Map<IEnumerable<TeacherDTO>>(teachers);
-        }
+        
 
        
         public async Task<TeacherDTO> GetTeacherByIdAsync(Guid id)

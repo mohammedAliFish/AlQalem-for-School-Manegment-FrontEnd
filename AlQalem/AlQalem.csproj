@@ -15,10 +15,17 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Exceptions\ClassExceptions\" />
+    <Folder Include="Exceptions\GradeExceptions\" />
+    <Folder Include="Exceptions\UserExceptions\" />
+    <Folder Include="Exceptions\TeacherExceptions\" />
+    <Folder Include="Exceptions\SubjectExceptions\" />
+    <Folder Include="Exceptions\StudentExceptions\" />
     <Folder Include="wwwroot\SchoolLogo\" />
   </ItemGroup>
 

@@ -5,7 +5,6 @@
 public interface InterfaceClassService
 {
     Task<IEnumerable<ClassDTO>> GetAllClassesAsync();
-    Task<IEnumerable<ClassDTO>> GetAllClassesIncludingDeletedAsync();
     Task<ClassDTO> GetClassByIdAsync(Guid id);
     Task<ClassDTO> CreateClassAsync(CreateClassDTO createClassDto);
     Task<ClassDTO> UpdateClassAsync(Guid id, UpdateClassDTO updateClassDTO);
