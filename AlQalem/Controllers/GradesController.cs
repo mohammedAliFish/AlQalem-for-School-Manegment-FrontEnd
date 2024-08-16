@@ -1,7 +1,7 @@
-﻿
-using AlQalem.DTOs.Grade;
+﻿using AlQalem.DTOs.Grade;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using AlQalem.Exceptions.GradeExceptions;
 
 namespace AlQalem.Controllers
 {
@@ -22,6 +22,10 @@ namespace AlQalem.Controllers
         public async Task<ActionResult<IEnumerable<GradeDTO>>> GetGrades()
         {
             var grades = await _gradeService.GetGradesAsync();
+            if (grades == null || !grades.Any())
+            {
+                throw new GradeNotFoundException("لم يتم العثور على درجات.");
+            }
             return Ok(grades);
         }
 
@@ -32,7 +36,7 @@ namespace AlQalem.Controllers
 
             if (grade == null)
             {
-                return NotFound();
+                throw new GradeNotFoundException();
             }
 
             return Ok(grade);
@@ -43,10 +47,10 @@ namespace AlQalem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                throw new InvalidGradeDataException("بيانات الدرجة غير صالحة.");
             }
 
-            
+
             var grade = _mapper.Map<GradeDTO>(createGradeDto);
 
             var createdGrade = await _gradeService.CreateGradeAsync(createGradeDto);
@@ -62,18 +66,18 @@ namespace AlQalem.Controllers
         {
             if (id != updateGradeDto.GradeId)
             {
-                return BadRequest("Grade ID mismatch.");
+                throw new GradeIdMismatchException("تعارض في معرف الدرجة.");
             }
 
-            
+
             var grade = _mapper.Map<Grade>(updateGradeDto);
             grade.GradeId = id;
 
             var updatedGrade = await _gradeService.UpdateGradeAsync(id, updateGradeDto);
 
-            if (updatedGrade == null)
+            if (grade == null)
             {
-                return NotFound("Grade not found.");
+                throw new GradeNotFoundException();
             }
 
             return NoContent();

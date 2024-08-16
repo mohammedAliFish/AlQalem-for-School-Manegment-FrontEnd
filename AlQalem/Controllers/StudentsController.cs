@@ -2,7 +2,7 @@
 using AlQalem.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-
+using AlQalem.Exceptions.StudentExceptions;
 namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
@@ -35,7 +35,7 @@ namespace AlQalem.Controllers
 
             if (student == null)
             {
-                return NotFound();
+                throw new StudentNotFoundException("الطالب المطلوب غير موجود.");
             }
 
             var studentDto = _mapper.Map<StudentDTO>(student);
@@ -47,7 +47,7 @@ namespace AlQalem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                throw new InvalidStudentDataException();
             }
 
             var student = _mapper.Map<Student>(createStudentDto);
@@ -70,7 +70,7 @@ namespace AlQalem.Controllers
 
             if (updatedStudent == null)
             {
-                return NotFound("Student not found.");
+                throw new StudentNotFoundException();
             }
 
             return NoContent();

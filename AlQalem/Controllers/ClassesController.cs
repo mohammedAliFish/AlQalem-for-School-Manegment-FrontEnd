@@ -34,7 +34,7 @@ namespace AlQalem.Controllers
 
             if (classEntity == null)
             {
-                return NotFound();
+                throw new NotFoundException();
             }
 
             var classDto = _mapper.Map<ClassDTO>(classEntity);
