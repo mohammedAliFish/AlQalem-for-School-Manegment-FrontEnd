@@ -1,5 +1,6 @@
 ﻿using AlQalem.Data;
 using AlQalem.DTOs.Class;
+using AlQalem.Exceptions.ClassExceptions;
 using AlQalem.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,11 @@ namespace AlQalem.Services
                 .Include(c => c.Students)
                 .Include(c => c.ClassSubjectTeachers)
                 .ToListAsync();
+
+            if (classes == null || !classes.Any())
+            {
+                throw new ClassNotFoundException("لم يتم العثور على أي صفوف.");
+            }
             return _mapper.Map<IEnumerable<ClassDTO>>(classes);
         }
 
@@ -39,12 +45,21 @@ namespace AlQalem.Services
                 .Include(c => c.Students)
                 .Include(c => c.ClassSubjectTeachers)
                 .FirstOrDefaultAsync(c => c.ClassId == id);
+
+            if (classEntity == null)
+            {
+                throw new ClassNotFoundException();
+            }
             return _mapper.Map<ClassDTO>(classEntity);
         }
 
         
         public async Task<ClassDTO> CreateClassAsync(CreateClassDTO createClassDto)
         {
+            if (createClassDto == null)
+            {
+                throw new InvalidClassDataException();
+            }
             var classEntity = _mapper.Map<Class>(createClassDto);
             _context.Classes.Add(classEntity);
             await _context.SaveChangesAsync();
@@ -55,10 +70,17 @@ namespace AlQalem.Services
         
         public async Task<ClassDTO> UpdateClassAsync(Guid id, UpdateClassDTO updateClassDto)
         {
+            if (id != updateClassDto.ClassId)
+            {
+                throw new ClassIdMismatchException();
+            }
             var classEntity = await _context.Classes.FindAsync(id);
-            if (classEntity == null) return null;
+            if (classEntity == null)
+            {
+                throw new ClassNotFoundException();
+            }
 
-            
+
             _mapper.Map(updateClassDto, classEntity);
 
             _context.Classes.Update(classEntity);
@@ -71,7 +93,11 @@ namespace AlQalem.Services
         public async Task DeleteClassAsync(Guid id)
         {
             var classEntity = await _context.Classes.FindAsync(id);
-            if (classEntity == null) return;
+            if (classEntity == null)
+                if (classEntity == null)
+                {
+                    throw new ClassNotFoundException();
+                }
             classEntity.IsDeleted = true;
             _context.Classes.Update(classEntity);
             await _context.SaveChangesAsync();

@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using AlQalem.Models;
-
+using AlQalem.Exceptions;
+using AlQalem.Exceptions.ClassExceptions;
 namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
@@ -45,7 +46,7 @@ namespace AlQalem.Controllers
         {
             if (createClassDto == null)
             {
-                return BadRequest("بيانات الصف غير صالحة.");
+                throw new InvalidClassDataException();
             }
 
             var classEntity = _mapper.Map<Class>(createClassDto);
@@ -60,7 +61,7 @@ namespace AlQalem.Controllers
         {
             if (id != updateClassDTO.ClassId)
             {
-                return BadRequest("Class ID mismatch.");
+                throw new ClassIdMismatchException();
             }
 
             var classEntity = _mapper.Map<Class>(updateClassDTO);
@@ -68,7 +69,7 @@ namespace AlQalem.Controllers
 
             if (updatedClass == null)
             {
-                return NotFound("Class not found.");
+                throw new ClassNotFoundException();
             }
 
             return NoContent();
