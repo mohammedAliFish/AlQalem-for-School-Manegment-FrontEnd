@@ -1,4 +1,4 @@
-﻿using AlQalem.Enums;
+﻿
 using System.ComponentModel.DataAnnotations;
 
 namespace AlQalem.Models

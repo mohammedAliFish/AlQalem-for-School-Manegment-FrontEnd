@@ -10,6 +10,7 @@ using AlQalem.DTOs.User;
 using AlQalem.DTOs.StudentAttachment;
 using System.Diagnostics;
 using AlQalem.DTOs.GradeLevel;
+using AlQalem.Enums;
 
 
 namespace AlQalem.Mappings
@@ -65,6 +66,15 @@ namespace AlQalem.Mappings
 
             CreateMap<Grade, GradeDTO>()
                 .ReverseMap();
+
+            CreateMap<Grade, GradeDTO>()
+           .ForMember(dest => dest.GradeType, opt => opt.MapFrom(src => src.GradeType.ToString())) 
+           .ForMember(dest => dest.StudentId, opt => opt.MapFrom(src => src.Student.Name))
+           .ForMember(dest => dest.GradeLevelId, opt => opt.MapFrom(src => src.GradeLevel.Name))
+           .ForMember(dest => dest.AcademicYearId, opt => opt.MapFrom(src => src.AcademicYear.Year));
+
+           
+
 
             CreateMap<School, SchoolDTO>()
            .ForMember(dest => dest.LogoPath, opt => opt.MapFrom(src => src.LogoPath));

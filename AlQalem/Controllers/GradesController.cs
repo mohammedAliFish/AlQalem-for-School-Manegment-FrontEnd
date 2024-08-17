@@ -43,7 +43,7 @@ namespace AlQalem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GradeDTO>> CreateGrade([FromBody] CreateGradeDTO createGradeDto)
+        public async Task<ActionResult<GradeDTO>> CreateGrade([FromForm] CreateGradeDTO createGradeDto)
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace AlQalem.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateGrade(Guid id, [FromBody] UpdateGradeDTO updateGradeDto)
+        public async Task<IActionResult> UpdateGrade(Guid id, [FromForm] UpdateGradeDTO updateGradeDto)
         {
             if (id != updateGradeDto.GradeId)
             {

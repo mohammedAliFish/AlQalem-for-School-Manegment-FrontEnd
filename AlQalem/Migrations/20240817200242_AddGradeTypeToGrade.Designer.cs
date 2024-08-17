@@ -4,6 +4,7 @@ using AlQalem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlQalem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240817200242_AddGradeTypeToGrade")]
+    partial class AddGradeTypeToGrade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,42 +41,42 @@ namespace AlQalem.Migrations
                     b.HasData(
                         new
                         {
-                            AcademicYearId = new Guid("c53180e4-97d0-47eb-b987-b25d5de7f6f0"),
+                            AcademicYearId = new Guid("3127bce4-cfb2-4479-be8a-f1996ed17a83"),
                             Year = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            AcademicYearId = new Guid("e527cd83-0e18-4e80-a426-1e482383ee1c"),
+                            AcademicYearId = new Guid("55e37b09-d6a5-436f-9674-e62814e13575"),
                             Year = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            AcademicYearId = new Guid("683c78bf-221d-4351-89b2-149553b5067d"),
+                            AcademicYearId = new Guid("ffdda266-9172-4286-8048-74223cdacde4"),
                             Year = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            AcademicYearId = new Guid("053dd4fb-89aa-435c-9145-7cd7c64dda86"),
+                            AcademicYearId = new Guid("19186c5c-eaa7-4f1d-a742-df57489788c2"),
                             Year = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            AcademicYearId = new Guid("93eb11e9-959e-41bd-9577-978d72b37a05"),
+                            AcademicYearId = new Guid("ae195ee0-dce9-4983-b766-0b7a95cd142d"),
                             Year = new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            AcademicYearId = new Guid("b77a3f93-5d03-4604-9e38-25df850e279c"),
+                            AcademicYearId = new Guid("810546ba-01fb-4b71-b603-3cac8fca64e8"),
                             Year = new DateTime(2028, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            AcademicYearId = new Guid("531891c0-c252-457d-9e52-b3814dd958bc"),
+                            AcademicYearId = new Guid("c2a212eb-77e8-4c29-ae2f-235f3c2df372"),
                             Year = new DateTime(2029, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            AcademicYearId = new Guid("7456aafd-363a-477d-b653-31ce9cc7c99c"),
+                            AcademicYearId = new Guid("7b7fdfd1-2a2c-483e-9bb6-1ab166b868e1"),
                             Year = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -193,17 +196,17 @@ namespace AlQalem.Migrations
                     b.HasData(
                         new
                         {
-                            GradeLevelId = new Guid("d877be1f-3c41-4441-9c4e-34d3df6c146b"),
+                            GradeLevelId = new Guid("a6f533ac-4f3f-4624-81e4-7ff9f881b314"),
                             Name = "الاول متوسط"
                         },
                         new
                         {
-                            GradeLevelId = new Guid("ecb0bcce-4a80-4669-8be3-b11cd3abe516"),
+                            GradeLevelId = new Guid("3b1704eb-8810-42d6-aae6-39dd58f30c8e"),
                             Name = "الثاني متوسط"
                         },
                         new
                         {
-                            GradeLevelId = new Guid("8d192da8-9799-4916-8b24-497444a647db"),
+                            GradeLevelId = new Guid("1330be0c-b393-4c42-9177-83ddb693963e"),
                             Name = "الثالث متوسط "
                         });
                 });
@@ -269,17 +272,17 @@ namespace AlQalem.Migrations
                     b.HasData(
                         new
                         {
-                            RoleId = new Guid("d68e9703-6722-4cf2-9d73-b5e2f1c064d8"),
+                            RoleId = new Guid("6afab5be-06f7-48bb-9925-0bd27a16dd83"),
                             Name = "Admin"
                         },
                         new
                         {
-                            RoleId = new Guid("0862688c-9742-4d70-9d85-f2197f48c8a6"),
+                            RoleId = new Guid("b03cc6d2-c799-4185-8d39-c3042a9bc132"),
                             Name = "Teacher"
                         },
                         new
                         {
-                            RoleId = new Guid("66cd92a5-61f3-488f-bfb2-cb994191eb7c"),
+                            RoleId = new Guid("e3234635-4f81-4406-ba19-28d448ec6c16"),
                             Name = "Student"
                         },
                         new
@@ -412,25 +415,25 @@ namespace AlQalem.Migrations
                     b.HasData(
                         new
                         {
-                            StudentStatusId = new Guid("be17c64f-930c-4d1d-b92c-7d3e764309b3"),
+                            StudentStatusId = new Guid("0e79efb1-3075-45d5-833d-8b50b1e41bfe"),
                             IsDeleted = false,
                             Name = "Ongoing"
                         },
                         new
                         {
-                            StudentStatusId = new Guid("b0592458-6abe-4542-873e-dfd4be400581"),
+                            StudentStatusId = new Guid("0763e3b3-4d7a-4009-85cf-873224a7080e"),
                             IsDeleted = false,
                             Name = "Transferred"
                         },
                         new
                         {
-                            StudentStatusId = new Guid("b8608202-3970-4010-be45-110e245cee30"),
+                            StudentStatusId = new Guid("cb4d9552-7720-4c94-a4c8-18b8ad76466d"),
                             IsDeleted = false,
                             Name = "Expelled"
                         },
                         new
                         {
-                            StudentStatusId = new Guid("d094cc93-bdde-475a-bf16-805af13a7840"),
+                            StudentStatusId = new Guid("5db99a82-618b-4c62-9f73-a6717fbda980"),
                             IsDeleted = false,
                             Name = "Interrupted"
                         });
