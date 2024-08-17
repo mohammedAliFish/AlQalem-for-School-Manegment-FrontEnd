@@ -1,5 +1,6 @@
 ﻿using AlQalem.Data;
 using AlQalem.DTOs.Teacher;
+using AlQalem.Exceptions.TeacherExceptions;
 using AlQalem.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -39,12 +40,20 @@ namespace AlQalem.Services
                 .Include(t => t.ClassTeachers)
                 .Include(t => t.TeacherSubjects)
                 .FirstOrDefaultAsync(t => t.TeacherId == id);
+            if (teacher == null)
+            {
+                throw new TeacherNotFoundException();
+            }
             return _mapper.Map<TeacherDTO>(teacher);
         }
 
         
         public async Task<TeacherDTO> CreateTeacherAsync(CreateTeacherDTO createTeacherDto)
         {
+            if (!await CheckIfUserExistsAsync(createTeacherDto.UserId))
+            {
+                throw new UserIdNotFoundException();
+            }
             var teacher = _mapper.Map<Teacher>(createTeacherDto);
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
@@ -54,8 +63,15 @@ namespace AlQalem.Services
         
         public async Task<TeacherDTO> UpdateTeacherAsync(Guid id, UpdateTeacherDTO updateTeacherDto)
         {
+            if (id != updateTeacherDto.TeacherId)
+            {
+                throw new MismatchedTeacherIdException();
+            }
             var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher == null) return null;
+            if (teacher == null)
+            {
+                throw new TeacherNotFoundException();
+            }
 
             _mapper.Map(updateTeacherDto, teacher);
             _context.Teachers.Update(teacher);
@@ -67,7 +83,10 @@ namespace AlQalem.Services
         public async Task DeleteTeacherAsync(Guid id)
         {
             var teacher = await _context.Teachers.FindAsync(id);
-            if (teacher == null) return;
+            if (teacher == null)
+            {
+                throw new TeacherNotFoundException();
+            }
             teacher.IsDeleted=true;
             _context.Teachers.Update(teacher);
             await _context.SaveChangesAsync();

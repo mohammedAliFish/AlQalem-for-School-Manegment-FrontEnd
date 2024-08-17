@@ -20,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Exceptions\UserExceptions\" />
-    <Folder Include="Exceptions\TeacherExceptions\" />
-    <Folder Include="Exceptions\SubjectExceptions\" />
     <Folder Include="wwwroot\SchoolLogo\" />
   </ItemGroup>
 

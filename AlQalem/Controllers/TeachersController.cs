@@ -1,4 +1,6 @@
 ﻿using AlQalem.DTOs.Teacher;
+using AlQalem.Exceptions;
+using AlQalem.Exceptions.TeacherExceptions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,10 +32,9 @@ namespace AlQalem.Controllers
         public async Task<ActionResult<TeacherDTO>> GetTeacher(Guid id)
         {
             var teacher = await _teacherService.GetTeacherByIdAsync(id);
-
             if (teacher == null)
             {
-                return NotFound();
+                throw new TeacherNotFoundException();
             }
 
             var teacherDTO = _mapper.Map<TeacherDTO>(teacher);
@@ -44,16 +45,17 @@ namespace AlQalem.Controllers
 
         public async Task<IActionResult> CreateTeacher([FromBody] CreateTeacherDTO createTeacherDTO)
         {
+
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                throw new InvalidModelStateException();
             }
 
-            
+
             var userExists = await _teacherService.CheckIfUserExistsAsync(createTeacherDTO.UserId);
             if (!userExists)
             {
-                return BadRequest("UserId does not exist.");
+                throw new UserIdNotFoundException();
             }
 
             var teacherDTO = await _teacherService.CreateTeacherAsync(createTeacherDTO);
@@ -67,18 +69,18 @@ namespace AlQalem.Controllers
         {
             if (id != updateTeacherDTO.TeacherId)
             {
-                return BadRequest("Mismatched Teacher Id");
+                throw new MismatchedTeacherIdException();
             }
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                throw new InvalidModelStateException();
             }
 
             var teacher = await _teacherService.GetTeacherByIdAsync(id);
             if (teacher == null)
             {
-                return NotFound();
+                throw new TeacherNotFoundException();
             }
 
             var updatedTeacher = await _teacherService.UpdateTeacherAsync(id, updateTeacherDTO); 
@@ -93,7 +95,7 @@ namespace AlQalem.Controllers
             var teacher = await _teacherService.GetTeacherByIdAsync(id);
             if (teacher == null)
             {
-                return NotFound();
+                throw new TeacherNotFoundException();
             }
 
             await _teacherService.DeleteTeacherAsync(id);

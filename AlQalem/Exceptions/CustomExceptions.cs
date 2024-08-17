@@ -17,4 +17,9 @@
     {
         public ValidationException() : base("فشل التحقق من صحة البيانات.") { }
     }
+
+    public class InvalidModelStateException : CustomException
+    {
+        public InvalidModelStateException() : base("البيانات المقدمة غير صالحة.") { }
+    }
 }

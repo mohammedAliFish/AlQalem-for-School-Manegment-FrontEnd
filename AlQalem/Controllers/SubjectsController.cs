@@ -1,4 +1,6 @@
 ﻿using AlQalem.DTOs.Subject;
+using AlQalem.Exceptions;
+using AlQalem.Exceptions.SubjectExceptions;
 using AlQalem.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +38,7 @@ namespace AlQalem.Controllers
 
             if (subject == null)
             {
-                return NotFound();
+                throw new SubjectNotFoundException();
             }
 
             var subjectDto = _mapper.Map<SubjectDTO>(subject);
@@ -49,7 +51,7 @@ namespace AlQalem.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                throw new InvalidModelStateException();
             }
 
             var subject = _mapper.Map<Subject>(createSubjectDto);
@@ -64,7 +66,7 @@ namespace AlQalem.Controllers
         {
             if (id != updateSubjectDto.SubjectId)
             {
-                return BadRequest("Subject ID mismatch.");
+                throw new SubjectIdMismatchException();
             }
 
             var subject = _mapper.Map<Subject>(updateSubjectDto);
@@ -72,7 +74,7 @@ namespace AlQalem.Controllers
 
             if (updatedSubject == null)
             {
-                return NotFound("Subject not found.");
+                throw new SubjectNotFoundException();
             }
 
             return NoContent();
@@ -85,16 +87,16 @@ namespace AlQalem.Controllers
             var subject = await _subjectService.GetSubjectByIdAsync(id);
             if (subject == null)
             {
-                return NotFound("Subject not found.");
+                throw new SubjectNotFoundException();
             }
 
-            
+
             if (await _subjectService.HasClassSubjectTeachersAsync(id) || await _subjectService.HasGradesAsync(id))
             {
-                return BadRequest("Cannot delete the subject as it is linked to classes or grades.");
+                throw new SubjectDeletionException();
             }
 
-            
+
             await _subjectService.DeleteSubjectAsync(id);
             return NoContent();
         }

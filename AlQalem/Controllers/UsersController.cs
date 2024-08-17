@@ -2,7 +2,7 @@
 using AlQalem.Models;
 using AutoMapper; 
 using Microsoft.AspNetCore.Mvc;
-
+using AlQalem.Exceptions.UserExceptions;
 
 namespace AlQalem.Controllers
 {
@@ -38,7 +38,7 @@ namespace AlQalem.Controllers
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
             {
-                return NotFound();
+                throw new UserNotFoundException();
             }
             var userDto = _mapper.Map<UserDTO>(user);
             return Ok(userDto);
@@ -60,14 +60,14 @@ namespace AlQalem.Controllers
         {
             if (id != updateUserDTO.UserId)
             {
-                return BadRequest("User ID mismatch.");
+                throw new UserIdMismatchException();
             }
 
             var user = _mapper.Map<User>(updateUserDTO); 
             var updatedUser = await _userService.UpdateUserAsync(id, updateUserDTO);
             if (updatedUser == null)
             {
-                return NotFound();
+                throw new UserNotFoundException();
             }
             var updatedUserDto = _mapper.Map<UserDTO>(updatedUser); 
             return Ok(updatedUserDto);
@@ -80,7 +80,7 @@ namespace AlQalem.Controllers
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
             {
-                return NotFound();
+                throw new UserNotFoundException();
             }
 
             await _userService.DeleteUserAsync(id);

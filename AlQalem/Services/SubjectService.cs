@@ -3,6 +3,7 @@ using AlQalem.DTOs.Subject;
 using AlQalem.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using AlQalem.Exceptions.SubjectExceptions;
 
 
 namespace AlQalem.Services
@@ -51,8 +52,15 @@ namespace AlQalem.Services
         
         public async Task<SubjectDTO> UpdateSubjectAsync(Guid id, UpdateSubjectDTO updateSubjectDTO)
         {
+            if (id != updateSubjectDTO.SubjectId)
+            {
+                throw new SubjectIdMismatchException();
+            }
             var subject = await _context.Subjects.FindAsync(id);
-            if (subject == null) return null;
+            if (subject == null)
+            {
+                throw new SubjectNotFoundException();
+            }
 
             _mapper.Map(updateSubjectDTO, subject);
             _context.Subjects.Update(subject);
@@ -64,7 +72,10 @@ namespace AlQalem.Services
         public async Task DeleteSubjectAsync(Guid id)
         {
             var subject = await _context.Subjects.FindAsync(id);
-            if (subject == null) return;
+            if (subject == null)
+            {
+                throw new SubjectNotFoundException();
+            }
             subject.IsDeleted=true;
             _context.Subjects.Update(subject);
             await _context.SaveChangesAsync();
