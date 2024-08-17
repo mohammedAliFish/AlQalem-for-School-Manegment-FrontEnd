@@ -17,12 +17,6 @@ namespace AlQalem.Services
             _context = context;
             _mapper = mapper;
         }
-
-      
-
-
-
-        
         public async Task<IEnumerable<SchoolDTO>> GetSchoolsAsync()
         {
             var schools = await _context.Schools
@@ -126,7 +120,10 @@ namespace AlQalem.Services
         public async Task DeleteSchoolAsync(Guid id)
         {
             var school = await _context.Schools.FindAsync(id);
-            if (school == null) return;
+            if (school == null)
+            {
+                throw new SchoolNotFoundException();
+            }
 
             
             school.IsDeleted = true;
