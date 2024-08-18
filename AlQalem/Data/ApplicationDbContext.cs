@@ -151,7 +151,11 @@ namespace AlQalem.Data
                 .HasForeignKey(g => g.AcademicYearId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-        
+            modelBuilder.Entity<Grade>()
+              .HasOne(g => g.GradeLevel)
+              .WithMany(gl => gl.Grades)
+              .HasForeignKey(g => g.GradeLevelId);
+
             modelBuilder.Entity<Grade>()
                 .Property(g => g.Score)
                 .HasColumnType("decimal(18,2)");
