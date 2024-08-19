@@ -3,10 +3,12 @@ using AlQalem.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using AlQalem.Exceptions.StudentExceptions;
+using Microsoft.AspNetCore.Authorization;
 namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class StudentsController : ControllerBase
     {
         private readonly InterfaceStudentService _studentService;

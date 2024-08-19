@@ -10,5 +10,5 @@ public interface InterfaceTeacherService
     Task<TeacherDTO> UpdateTeacherAsync(Guid id, UpdateTeacherDTO teacherDto);
     Task DeleteTeacherAsync(Guid id);
 
-    Task<bool> CheckIfUserExistsAsync(Guid userId);
+    
 }

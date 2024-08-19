@@ -6,7 +6,6 @@ using AlQalem.Exceptions.SchoolExceptions;
 using AlQalem.Exceptions.StudentExceptions;
 using AlQalem.Exceptions.SubjectExceptions;
 using AlQalem.Exceptions.TeacherExceptions;
-using AlQalem.Exceptions.UserExceptions;
 using Newtonsoft.Json;
 
 namespace AlQalem.Middlewares
@@ -123,18 +122,7 @@ namespace AlQalem.Middlewares
                     statusCode = StatusCodes.Status404NotFound;
                     message = userIdNotFoundException.Message;
                     break;
-                case UserCreationException userCreationException:
-                    statusCode = StatusCodes.Status404NotFound;
-                    message = userCreationException.Message;
-                    break;
-                case UserIdMismatchException userIdMismatchException:
-                    statusCode = StatusCodes.Status404NotFound;
-                    message = userIdMismatchException.Message;
-                    break;
-                case UserNotFoundException userIdNotFoundException:
-                    statusCode = StatusCodes.Status404NotFound;
-                    message = userIdNotFoundException.Message;
-                    break;
+               
             }
 
 

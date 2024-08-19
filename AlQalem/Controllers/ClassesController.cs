@@ -4,10 +4,12 @@ using AutoMapper;
 using AlQalem.Models;
 using AlQalem.Exceptions;
 using AlQalem.Exceptions.ClassExceptions;
+using Microsoft.AspNetCore.Authorization;
 namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class ClassesController : ControllerBase
     {
         private readonly InterfaceClassService _classService;

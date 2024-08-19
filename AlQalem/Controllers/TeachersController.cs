@@ -52,11 +52,7 @@ namespace AlQalem.Controllers
             }
 
 
-            var userExists = await _teacherService.CheckIfUserExistsAsync(createTeacherDTO.UserId);
-            if (!userExists)
-            {
-                throw new UserIdNotFoundException();
-            }
+           
 
             var teacherDTO = await _teacherService.CreateTeacherAsync(createTeacherDTO);
             return CreatedAtAction(nameof(GetTeacher), new { id = teacherDTO.TeacherId }, teacherDTO);

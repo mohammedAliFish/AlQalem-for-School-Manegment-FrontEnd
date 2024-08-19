@@ -3,11 +3,13 @@ using AlQalem.Models;
 using AlQalem.DTOs.School;
 using AutoMapper;
 using AlQalem.Exceptions.SchoolExceptions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class SchoolsController : ControllerBase
     {
         private readonly InterfaceSchoolService _schoolService;

@@ -23,7 +23,7 @@ namespace AlQalem.Services
         public async Task<IEnumerable<TeacherDTO>> GetTeachersAsync()
         {
             var teachers = await _context.Teachers
-                .Include(t => t.User)
+                
                 .Include(t => t.ClassTeachers)
                 .Include(t => t.TeacherSubjects)
                 .ToListAsync();
@@ -36,7 +36,7 @@ namespace AlQalem.Services
         public async Task<TeacherDTO> GetTeacherByIdAsync(Guid id)
         {
             var teacher = await _context.Teachers
-                .Include(t => t.User) 
+                
                 .Include(t => t.ClassTeachers)
                 .Include(t => t.TeacherSubjects)
                 .FirstOrDefaultAsync(t => t.TeacherId == id);
@@ -50,10 +50,7 @@ namespace AlQalem.Services
         
         public async Task<TeacherDTO> CreateTeacherAsync(CreateTeacherDTO createTeacherDto)
         {
-            if (!await CheckIfUserExistsAsync(createTeacherDto.UserId))
-            {
-                throw new UserIdNotFoundException();
-            }
+            
             var teacher = _mapper.Map<Teacher>(createTeacherDto);
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
@@ -91,9 +88,6 @@ namespace AlQalem.Services
             _context.Teachers.Update(teacher);
             await _context.SaveChangesAsync();
         }
-        public async Task<bool> CheckIfUserExistsAsync(Guid userId)
-        {
-            return await _context.Users.AnyAsync(u => u.UserId == userId);
-        }
+       
     }
 }

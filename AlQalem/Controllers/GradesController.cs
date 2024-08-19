@@ -2,11 +2,13 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using AlQalem.Exceptions.GradeExceptions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class GradesController : ControllerBase
     {
         private readonly InterfaceGradeService _gradeService;

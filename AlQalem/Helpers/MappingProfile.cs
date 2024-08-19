@@ -6,11 +6,10 @@ using AlQalem.DTOs.Grade;
 using AlQalem.DTOs.Student;
 using AlQalem.DTOs.Subject;
 using AlQalem.DTOs.Teacher;
-using AlQalem.DTOs.User;
+
 using AlQalem.DTOs.StudentAttachment;
-using System.Diagnostics;
 using AlQalem.DTOs.GradeLevel;
-using AlQalem.Enums;
+
 
 
 namespace AlQalem.Mappings
@@ -34,10 +33,7 @@ namespace AlQalem.Mappings
             CreateMap<Teacher, TeacherDTO>();
 
 
-            CreateMap<User, UserDTO>()
-                .ReverseMap();
-            CreateMap<CreateUserDTO, User>();
-            CreateMap<UpdateUserDTO, User>();
+           
 
 
             CreateMap<Student, StudentDTO>()

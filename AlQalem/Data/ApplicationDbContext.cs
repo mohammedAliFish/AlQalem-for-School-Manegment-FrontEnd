@@ -2,22 +2,19 @@
 using AlQalem.Seeders;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace AlQalem.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
-        
         public DbSet<School> Schools { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
-        public DbSet<RolePermission> RolePermissions { get; set; }
-        public DbSet<User> Users { get; set; }
+      
         public DbSet<StudentStatus> StudentStatuses { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Subject> Subjects { get; set; }
@@ -34,9 +31,8 @@ namespace AlQalem.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Primary keys
-            modelBuilder.Entity<RolePermission>()
-                .HasKey(rp => new { rp.RoleId, rp.PermissionId });
+            // Configure composite keys
+            
 
             modelBuilder.Entity<ClassTeacher>()
                 .HasKey(ct => new { ct.ClassId, ct.TeacherId });
@@ -44,12 +40,13 @@ namespace AlQalem.Data
             modelBuilder.Entity<TeacherSubject>()
                 .HasKey(ts => new { ts.TeacherId, ts.SubjectId });
 
-            // Relationships
+           
+
             modelBuilder.Entity<School>()
                 .HasMany(s => s.Classes)
                 .WithOne(c => c.School)
                 .HasForeignKey(c => c.SchoolId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Class>()
                 .HasMany(c => c.Students)
@@ -101,7 +98,7 @@ namespace AlQalem.Data
                 .HasMany(s => s.Grades)
                 .WithOne(g => g.Subject)
                 .HasForeignKey(g => g.SubjectId)
-                .OnDelete(DeleteBehavior.Restrict);modelBuilder.Entity<Subject>();
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Student>()
                 .HasMany(s => s.Grades)
@@ -116,10 +113,10 @@ namespace AlQalem.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Student>()
-                 .HasOne(s => s.Status)
-                 .WithMany(ss => ss.Students)
-                 .HasForeignKey(s => s.StatusId)
-                 .OnDelete(DeleteBehavior.Cascade);
+                .HasOne(s => s.Status)
+                .WithMany(ss => ss.Students)
+                .HasForeignKey(s => s.StatusId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Attachment>()
                 .HasMany(a => a.StudentAttachments)
@@ -127,23 +124,10 @@ namespace AlQalem.Data
                 .HasForeignKey(sa => sa.AttachmentId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Role>()
-                .HasMany(r => r.Users)
-                .WithOne(u => u.Role)
-                .HasForeignKey(u => u.RoleId)
-                .OnDelete(DeleteBehavior.NoAction);
+           
 
-            modelBuilder.Entity<Role>()
-                .HasMany(r => r.RolePermissions)
-                .WithOne(rp => rp.Role)
-                .HasForeignKey(rp => rp.RoleId)
-                .OnDelete(DeleteBehavior.NoAction);
+        
 
-            modelBuilder.Entity<Permission>()
-                .HasMany(p => p.RolePermissions)
-                .WithOne(rp => rp.Permission)
-                .HasForeignKey(rp => rp.PermissionId)
-                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<AcademicYear>()
                 .HasMany(a => a.Grades)
@@ -152,19 +136,10 @@ namespace AlQalem.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Grade>()
-              .HasOne(g => g.GradeLevel)
-              .WithMany(gl => gl.Grades)
-              .HasForeignKey(g => g.GradeLevelId);
-
-            modelBuilder.Entity<Grade>()
                 .Property(g => g.Score)
                 .HasColumnType("decimal(18,2)");
 
-            modelBuilder.Entity<User>()
-                .HasOne(u => u.Role)
-                .WithMany(r => r.Users)
-                .HasForeignKey(u => u.RoleId)
-                .OnDelete(DeleteBehavior.NoAction);
+           
 
             // Global query filters
             modelBuilder.Entity<School>()
@@ -180,31 +155,17 @@ namespace AlQalem.Data
                 .HasQueryFilter(ct => !ct.Class.IsDeleted && !ct.Teacher.IsDeleted);
 
             modelBuilder.Entity<Student>()
-          .HasQueryFilter(s => !s.IsDeleted);
+                .HasQueryFilter(s => !s.IsDeleted);
 
             modelBuilder.Entity<GradeLevels>()
-       .HasKey(gl => gl.GradeLevelId);
+                .HasKey(gl => gl.GradeLevelId);
 
-
-
-            // One-to-One relationships
-            modelBuilder.Entity<Teacher>()
-                .HasOne(t => t.User)
-                .WithOne(u => u.Teacher)
-                .HasForeignKey<Teacher>(t => t.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-
+           
             // Seed data
-            RoleSeeder.Seed(modelBuilder);
-            PermissionSeeder.Seed(modelBuilder);
-            RolePermissionSeeder.Seed(modelBuilder);
+          
             StudentStatusSeeder.Seed(modelBuilder);
             GradeLevelSeeder.Seed(modelBuilder);
             AcademicYearSeeder.Seed(modelBuilder);
         }
-
-
-
     }
 }
