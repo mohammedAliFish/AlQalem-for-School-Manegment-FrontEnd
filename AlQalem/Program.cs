@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using AlQalem.Mappings;
 using AlQalem.Services;
 using AlQalem.Middlewares;
+using AlQalem.Models;
+using Microsoft.AspNetCore.Identity;
+using AlQalem.Extentions;
+
 
 
 
@@ -19,12 +23,13 @@ builder.Services.AddScoped<InterfaceSubjectService, SubjectService>();
 builder.Services.AddScoped<InterfaceGradeService, GradeService>();
 
 
-
+builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCustomJwtAuth(builder.Configuration);
+builder.Services.AddSwaggerGenJwtAuth();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("myConnection")));
 
 
@@ -42,7 +47,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
