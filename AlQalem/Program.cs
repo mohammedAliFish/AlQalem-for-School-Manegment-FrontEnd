@@ -23,7 +23,7 @@ builder.Services.AddScoped<InterfaceSubjectService, SubjectService>();
 builder.Services.AddScoped<InterfaceGradeService, GradeService>();
 
 
-builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<User,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllers();
 

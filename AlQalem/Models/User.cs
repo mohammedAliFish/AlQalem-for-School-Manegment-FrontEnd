@@ -2,7 +2,7 @@
 
 namespace AlQalem.Models
 {
-    public class AppUser : IdentityUser
+    public class User : IdentityUser
     {
     }
 }

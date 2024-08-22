@@ -13,10 +13,10 @@ namespace AlQalem.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
 
-        public AccountController(UserManager<AppUser> userManager, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -27,7 +27,7 @@ namespace AlQalem.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser appUser = new()
+                User appUser = new()
                 {
                     UserName = user.userName,
                 };
@@ -54,7 +54,7 @@ namespace AlQalem.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = await _userManager.FindByNameAsync(loginUser.userName);
+                User user = await _userManager.FindByNameAsync(loginUser.userName);
                 if (user != null && await _userManager.CheckPasswordAsync(user, loginUser.password))
                 {
                     var claims = new List<Claim>

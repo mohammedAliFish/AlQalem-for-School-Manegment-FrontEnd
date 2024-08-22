@@ -38,7 +38,7 @@ namespace AlQalem.Extentions
                 {
                     Version = "v1",
                     Title = "API",
-                    Description = "API documentation",
+                    Description = "My API",
                     Contact = new OpenApiContact
                     {
                         Name = "Mohammed",
@@ -55,7 +55,7 @@ namespace AlQalem.Extentions
                     Scheme = "bearer",
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer' followed by a space and the JWT token."
+                    Description = "Enter JWT token"
                 });
 
                 // Set up the security requirement
