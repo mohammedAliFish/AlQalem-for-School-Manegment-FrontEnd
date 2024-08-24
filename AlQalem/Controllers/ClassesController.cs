@@ -9,7 +9,7 @@ namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ClassesController : ControllerBase
     {
         private readonly InterfaceClassService _classService;

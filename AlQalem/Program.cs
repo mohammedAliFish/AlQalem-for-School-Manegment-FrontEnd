@@ -44,6 +44,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+    await RoleSeeder.SeedRoles(roleManager);
+    await UserSeeder.SeedUsers(userManager, roleManager);
+}
 
 app.UseHttpsRedirection();
 

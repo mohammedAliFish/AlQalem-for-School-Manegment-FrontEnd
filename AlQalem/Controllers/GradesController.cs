@@ -8,7 +8,7 @@ namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Student")]
     public class GradesController : ControllerBase
     {
         private readonly InterfaceGradeService _gradeService;
