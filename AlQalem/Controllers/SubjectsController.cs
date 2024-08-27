@@ -3,6 +3,7 @@ using AlQalem.Exceptions;
 using AlQalem.Exceptions.SubjectExceptions;
 using AlQalem.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -10,6 +11,7 @@ namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class SubjectsController : ControllerBase
     {
         private readonly InterfaceSubjectService _subjectService;

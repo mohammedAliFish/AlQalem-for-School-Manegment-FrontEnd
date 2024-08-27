@@ -2,6 +2,7 @@
 using AlQalem.Exceptions;
 using AlQalem.Exceptions.TeacherExceptions;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -9,6 +10,7 @@ namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class TeachersController : ControllerBase
     {
         private readonly InterfaceTeacherService _teacherService;

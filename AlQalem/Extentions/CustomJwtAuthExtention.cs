@@ -47,7 +47,7 @@ namespace AlQalem.Extentions
                     }
                 });
 
-                // Define the security scheme
+                
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -58,7 +58,7 @@ namespace AlQalem.Extentions
                     Description = "Enter JWT token"
                 });
 
-                // Set up the security requirement
+            
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
