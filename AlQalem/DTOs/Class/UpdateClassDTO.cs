@@ -7,6 +7,7 @@ namespace AlQalem.DTOs.Class
 
         public required Guid ClassId { get; set; }
         
-      
+
+
     }
 }

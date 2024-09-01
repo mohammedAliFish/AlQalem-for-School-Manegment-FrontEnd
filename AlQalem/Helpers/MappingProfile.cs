@@ -23,7 +23,10 @@ namespace AlQalem.Mappings
 
            
             CreateMap<Class, ClassDTO>()
+                 .ForMember(dest => dest.GradeLevel, opt => opt.MapFrom(src => src.GradeLevel)) 
+                
                 .ReverseMap();
+
             CreateMap<CreateClassDTO, Class>().ReverseMap();
             CreateMap<UpdateClassDTO, Class>().ReverseMap();
 
@@ -42,7 +45,7 @@ namespace AlQalem.Mappings
             CreateMap<UpdateStudentDTO, Student>();
 
 
-            CreateMap<GradeLevels, GradeLevelDTO>().ReverseMap();
+            CreateMap<GradeLevels, GradeLevelDTO>().ForMember(dest => dest.LevelName, opt => opt.MapFrom(src => src.Name)).ReverseMap();
             CreateMap<CreateGradeLevelDTO, GradeLevels>();
             CreateMap<UpdateGradeLevelDTO, GradeLevels>();
 

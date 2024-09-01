@@ -9,7 +9,7 @@ namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+   // [Authorize(Roles = "Admin")]
     public class ClassesController : ControllerBase
     {
         private readonly InterfaceClassService _classService;
@@ -26,6 +26,10 @@ namespace AlQalem.Controllers
         {
             var classes = await _classService.GetAllClassesAsync();
             var classDtos = _mapper.Map<IEnumerable<ClassDTO>>(classes);
+            foreach (var classDto in classDtos)
+            {
+                Console.WriteLine($"ClassDTO: {classDto.Name}, GradeLevel: {classDto.GradeLevel?.LevelName}");
+            }
             return Ok(classDtos);
         }
 

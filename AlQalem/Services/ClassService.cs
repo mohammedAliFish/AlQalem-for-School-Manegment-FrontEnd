@@ -24,11 +24,19 @@ namespace AlQalem.Services
         
         public async Task<IEnumerable<ClassDTO>> GetAllClassesAsync()
         {
+            
+
             var classes = await _context.Classes
                 .Include(c => c.School)
                 .Include(c => c.Students)
                 .Include(c => c.ClassSubjectTeachers)
+                .Include(c => c.GradeLevel)
                 .ToListAsync();
+
+            foreach (var classItem in classes)
+            {
+                Console.WriteLine($"Class: {classItem.Name}, GradeLevel: {classItem.GradeLevel?.Name}");
+            }
 
             if (classes == null || !classes.Any())
             {
@@ -44,6 +52,7 @@ namespace AlQalem.Services
                 .Include(c => c.School) 
                 .Include(c => c.Students)
                 .Include(c => c.ClassSubjectTeachers)
+                .Include(c => c.GradeLevel)
                 .FirstOrDefaultAsync(c => c.ClassId == id);
 
             if (classEntity == null)
