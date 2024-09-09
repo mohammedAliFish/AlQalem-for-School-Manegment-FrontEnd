@@ -15,7 +15,7 @@ namespace AlQalem.Models
         public School School { get; set; }
         public ICollection<Student> Students { get; set; } 
         public ICollection<ClassTeacher> ClassTeachers { get; set; } 
-        public ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
+        public IList<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
     }
 
 }

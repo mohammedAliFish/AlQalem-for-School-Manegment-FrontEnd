@@ -19,7 +19,7 @@ namespace AlQalem.Services
             _mapper = mapper;
         }
 
-        // Retrieve all teachers
+      
         public async Task<IEnumerable<TeacherDTO>> GetTeachersAsync()
         {
             var teachers = await _context.Teachers
@@ -60,10 +60,7 @@ namespace AlQalem.Services
         
         public async Task<TeacherDTO> UpdateTeacherAsync(Guid id, UpdateTeacherDTO updateTeacherDto)
         {
-            if (id != updateTeacherDto.TeacherId)
-            {
-                throw new MismatchedTeacherIdException();
-            }
+           
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)
             {

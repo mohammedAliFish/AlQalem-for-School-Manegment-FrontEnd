@@ -18,12 +18,25 @@ namespace AlQalem.Mappings
     {
         public MappingProfile()
         {
-            
-          
 
-           
+            CreateMap<CreateClassDTO, Class>()
+             .ForMember(dest => dest.ClassId, opt => opt.Ignore())
+             .ForMember(dest => dest.ClassSubjectTeachers, opt => opt.Ignore()) 
+             .ForMember(dest => dest.Students, opt => opt.Ignore()) 
+             .ForMember(dest => dest.IsDeleted, opt => opt.Ignore()); 
+
+       
+
+
+            CreateMap<ClassSubjectTeacher, SubjectTeacherDto>().ReverseMap();
+
+
+
             CreateMap<Class, ClassDTO>()
-                 .ForMember(dest => dest.GradeLevel, opt => opt.MapFrom(src => src.GradeLevel)) 
+               
+                 .ForMember(dest => dest.Subjects, opt => opt.MapFrom(src => src.ClassSubjectTeachers.Select(cst => cst.Subject)))
+                 .ForMember(dest => dest.Teachers, opt => opt.MapFrom(src => src.ClassSubjectTeachers.Select(cst => cst.Teacher)))
+
                 
                 .ReverseMap();
 
@@ -32,11 +45,11 @@ namespace AlQalem.Mappings
 
 
             CreateMap<CreateTeacherDTO, Teacher>();
-            CreateMap<UpdateTeacherDTO, Teacher>().ForMember(dest => dest.TeacherId, opt => opt.Ignore());
             CreateMap<Teacher, TeacherDTO>();
+            CreateMap<UpdateTeacherDTO, Teacher>();
+          
 
 
-           
 
 
             CreateMap<Student, StudentDTO>()
@@ -58,9 +71,10 @@ namespace AlQalem.Mappings
             CreateMap<CreateGradeDTO, GradeDTO>()   
                 .ReverseMap();
 
-
-            CreateMap<Subject, SubjectDTO>().ReverseMap();
             CreateMap<CreateSubjectDTO, Subject>();
+            CreateMap<Subject, SubjectDTO>();
+       
+           
             CreateMap<UpdateSubjectDTO, Subject>();
 
             CreateMap<Grade, GradeDTO>()

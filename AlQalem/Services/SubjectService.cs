@@ -52,15 +52,9 @@ namespace AlQalem.Services
         
         public async Task<SubjectDTO> UpdateSubjectAsync(Guid id, UpdateSubjectDTO updateSubjectDTO)
         {
-            if (id != updateSubjectDTO.SubjectId)
-            {
-                throw new SubjectIdMismatchException();
-            }
+          
             var subject = await _context.Subjects.FindAsync(id);
-            if (subject == null)
-            {
-                throw new SubjectNotFoundException();
-            }
+           
 
             _mapper.Map(updateSubjectDTO, subject);
             _context.Subjects.Update(subject);

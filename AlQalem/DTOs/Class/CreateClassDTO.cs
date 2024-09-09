@@ -4,12 +4,13 @@ namespace AlQalem.DTOs.Class
 {
     public class CreateClassDTO
     {
-        [MaxLength(100)]
+        [Required, MaxLength(100)]
         public required string Name { get; set; }
 
-        
         public required Guid GradeLevelId { get; set; }
-       
-        public required Guid SchoolId { get; set; }
+
+        public Guid SchoolId { get; set; }
+
+        public IList<SubjectTeacherDto> ClassSubjectTeachers { get; set; }
     }
 }

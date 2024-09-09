@@ -1,6 +1,6 @@
 ﻿namespace AlQalem.DTOs.Subject
 {
-    public class UpdateSubjectDTO : SubjectDTO
+    public class UpdateSubjectDTO : CreateSubjectDTO
     {
       
     }

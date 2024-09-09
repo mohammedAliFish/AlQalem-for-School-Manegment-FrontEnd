@@ -44,42 +44,28 @@ namespace AlQalem.Controllers
         }
 
         [HttpPost]
-
-        public async Task<IActionResult> CreateTeacher([FromBody] CreateTeacherDTO createTeacherDTO)
+        public async Task<ActionResult<TeacherDTO>> CreateTeacher([FromBody] CreateTeacherDTO createTeacherDTO)
         {
-
-            if (!ModelState.IsValid)
-            {
-                throw new InvalidModelStateException();
-            }
-
-
-           
+            
 
             var teacherDTO = await _teacherService.CreateTeacherAsync(createTeacherDTO);
+
+         
             return CreatedAtAction(nameof(GetTeacher), new { id = teacherDTO.TeacherId }, teacherDTO);
         }
+
 
 
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTeacher(Guid id, [FromBody] UpdateTeacherDTO updateTeacherDTO)
         {
-            if (id != updateTeacherDTO.TeacherId)
-            {
-                throw new MismatchedTeacherIdException();
-            }
+           
 
-            if (!ModelState.IsValid)
-            {
-                throw new InvalidModelStateException();
-            }
+            
 
             var teacher = await _teacherService.GetTeacherByIdAsync(id);
-            if (teacher == null)
-            {
-                throw new TeacherNotFoundException();
-            }
+           
 
             var updatedTeacher = await _teacherService.UpdateTeacherAsync(id, updateTeacherDTO); 
 

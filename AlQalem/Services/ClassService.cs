@@ -1,5 +1,7 @@
 ﻿using AlQalem.Data;
 using AlQalem.DTOs.Class;
+using AlQalem.DTOs.Subject;
+using AlQalem.DTOs.Teacher;
 using AlQalem.Exceptions.ClassExceptions;
 using AlQalem.Models;
 using AutoMapper;
@@ -19,32 +21,18 @@ namespace AlQalem.Services
             _mapper = mapper;
         }
 
-       
-
-        
         public async Task<IEnumerable<ClassDTO>> GetAllClassesAsync()
         {
-            
-
             var classes = await _context.Classes
+                
                 .Include(c => c.School)
                 .Include(c => c.Students)
                 .Include(c => c.ClassSubjectTeachers)
                 .Include(c => c.GradeLevel)
                 .ToListAsync();
 
-            foreach (var classItem in classes)
-            {
-                Console.WriteLine($"Class: {classItem.Name}, GradeLevel: {classItem.GradeLevel?.Name}");
-            }
-
-            if (classes == null || !classes.Any())
-            {
-                throw new ClassNotFoundException("لم يتم العثور على أي صفوف.");
-            }
             return _mapper.Map<IEnumerable<ClassDTO>>(classes);
         }
-
         
         public async Task<ClassDTO> GetClassByIdAsync(Guid id)
         {
@@ -62,21 +50,21 @@ namespace AlQalem.Services
             return _mapper.Map<ClassDTO>(classEntity);
         }
 
-        
         public async Task<ClassDTO> CreateClassAsync(CreateClassDTO createClassDto)
         {
-            if (createClassDto == null)
-            {
-                throw new InvalidClassDataException();
-            }
             var classEntity = _mapper.Map<Class>(createClassDto);
+
+            classEntity.ClassId = Guid.NewGuid();
+
+            for (int i = 0; i < classEntity.ClassSubjectTeachers.Count; i++)
+                classEntity.ClassSubjectTeachers[i].ClassId = classEntity.ClassId;
+
             _context.Classes.Add(classEntity);
             await _context.SaveChangesAsync();
 
             return _mapper.Map<ClassDTO>(classEntity);
         }
 
-        
         public async Task<ClassDTO> UpdateClassAsync(Guid id, UpdateClassDTO updateClassDto)
         {
             if (id != updateClassDto.ClassId)
@@ -97,7 +85,6 @@ namespace AlQalem.Services
 
             return _mapper.Map<ClassDTO>(classEntity);
         }
-
         
         public async Task DeleteClassAsync(Guid id)
         {

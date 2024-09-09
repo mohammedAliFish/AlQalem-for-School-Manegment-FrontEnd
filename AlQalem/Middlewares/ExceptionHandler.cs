@@ -34,7 +34,7 @@ namespace AlQalem.Middlewares
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var statusCode = StatusCodes.Status500InternalServerError;
-            var message = "حدث خطأ غير متوقع.";
+            var message = exception.Message + "\t" + exception?.InnerException?.Message;
 
             switch (exception)
             {

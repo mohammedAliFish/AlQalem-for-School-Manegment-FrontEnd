@@ -164,7 +164,7 @@ namespace AlQalem.Data
             // Seed data
           
             StudentStatusSeeder.Seed(modelBuilder);
-            GradeLevelSeeder.Seed(modelBuilder);
+            
             AcademicYearSeeder.Seed(modelBuilder);
         }
     }

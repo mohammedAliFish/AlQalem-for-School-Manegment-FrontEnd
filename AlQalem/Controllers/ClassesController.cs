@@ -5,6 +5,7 @@ using AlQalem.Models;
 using AlQalem.Exceptions;
 using AlQalem.Exceptions.ClassExceptions;
 using Microsoft.AspNetCore.Authorization;
+using AlQalem.DTOs.Teacher;
 namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
@@ -26,11 +27,9 @@ namespace AlQalem.Controllers
         {
             var classes = await _classService.GetAllClassesAsync();
             var classDtos = _mapper.Map<IEnumerable<ClassDTO>>(classes);
-            foreach (var classDto in classDtos)
-            {
-                Console.WriteLine($"ClassDTO: {classDto.Name}, GradeLevel: {classDto.GradeLevel?.LevelName}");
-            }
             return Ok(classDtos);
+
+          //  return CreatedAtAction(nameof(GetTeacher), new { id = teacherDTO.TeacherId }, teacherDTO);
         }
 
         [HttpGet("{id}")]
@@ -52,15 +51,18 @@ namespace AlQalem.Controllers
         {
             if (createClassDto == null)
             {
-                throw new InvalidClassDataException();
+                return BadRequest("البيانات المدخلة غير صحيحة.");
             }
 
             var classEntity = _mapper.Map<Class>(createClassDto);
             var createdClass = await _classService.CreateClassAsync(createClassDto);
 
-            var createdClassDto = _mapper.Map<ClassDTO>(createdClass);
-            return CreatedAtAction(nameof(GetClassById), new { id = createdClassDto.ClassId }, createdClassDto);
+            var ClassDto = _mapper.Map<ClassDTO>(createdClass);
+
+            return CreatedAtAction(nameof(GetClassById), new { id = ClassDto.ClassId }, ClassDto);
         }
+
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateClass(Guid id, [FromBody] UpdateClassDTO updateClassDTO)

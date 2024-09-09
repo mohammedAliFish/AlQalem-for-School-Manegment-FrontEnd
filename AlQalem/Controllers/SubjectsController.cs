@@ -48,28 +48,17 @@ namespace AlQalem.Controllers
         }
 
         [HttpPost]
-
-        public async Task<ActionResult<SubjectDTO>> CreateSubject(CreateSubjectDTO createSubjectDto)
+        public async Task<IActionResult> CreateSubject([FromBody] CreateSubjectDTO createSubjectDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                throw new InvalidModelStateException();
-            }
-
-            var subject = _mapper.Map<Subject>(createSubjectDto);
-            var createdSubject = await _subjectService.CreateSubjectAsync(createSubjectDto);
-            var createdSubjectDto = _mapper.Map<SubjectDTO>(createdSubject);
-
-            return CreatedAtAction(nameof(GetSubject), new { id = createdSubjectDto.SubjectId }, createdSubjectDto);
+            var createdSubject = await _subjectService.CreateSubjectAsync(createSubjectDTO);
+            return CreatedAtAction(nameof(GetSubject), new { id = createdSubject.SubjectId }, createdSubject);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSubject(Guid id, UpdateSubjectDTO updateSubjectDto)
         {
-            if (id != updateSubjectDto.SubjectId)
-            {
-                throw new SubjectIdMismatchException();
-            }
+           
 
             var subject = _mapper.Map<Subject>(updateSubjectDto);
             var updatedSubject = await _subjectService.UpdateSubjectAsync(id, updateSubjectDto);

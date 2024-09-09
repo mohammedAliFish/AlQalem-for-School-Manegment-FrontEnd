@@ -2,7 +2,7 @@
 {
     public class Subject
     {
-        public Guid SubjectId { get; set; } 
+        public Guid SubjectId { get; set; }
         public required string Name { get; set; }
         public bool IsDeleted { get; set; }
 
