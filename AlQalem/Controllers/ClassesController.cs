@@ -67,10 +67,6 @@ namespace AlQalem.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateClass(Guid id, [FromBody] UpdateClassDTO updateClassDTO)
         {
-            if (id != updateClassDTO.ClassId)
-            {
-                throw new ClassIdMismatchException();
-            }
 
             var classEntity = _mapper.Map<Class>(updateClassDTO);
             var updatedClass = await _classService.UpdateClassAsync(id, updateClassDTO);

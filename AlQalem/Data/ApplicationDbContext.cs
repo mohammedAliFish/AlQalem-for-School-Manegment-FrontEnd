@@ -160,9 +160,15 @@ namespace AlQalem.Data
             modelBuilder.Entity<GradeLevels>()
                 .HasKey(gl => gl.GradeLevelId);
 
-           
+            modelBuilder.Entity<Subject>()
+                .HasQueryFilter(s => !s.IsDeleted);
+
+            modelBuilder.Entity<Teacher>()
+                .HasQueryFilter(s => !s.IsDeleted);
+
+
             // Seed data
-          
+
             StudentStatusSeeder.Seed(modelBuilder);
             
             AcademicYearSeeder.Seed(modelBuilder);

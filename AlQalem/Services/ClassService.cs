@@ -1,7 +1,6 @@
 ﻿using AlQalem.Data;
 using AlQalem.DTOs.Class;
-using AlQalem.DTOs.Subject;
-using AlQalem.DTOs.Teacher;
+
 using AlQalem.Exceptions.ClassExceptions;
 using AlQalem.Models;
 using AutoMapper;
@@ -67,25 +66,23 @@ namespace AlQalem.Services
 
         public async Task<ClassDTO> UpdateClassAsync(Guid id, UpdateClassDTO updateClassDto)
         {
-            if (id != updateClassDto.ClassId)
-            {
-                throw new ClassIdMismatchException();
-            }
+           
+
             var classEntity = await _context.Classes.FindAsync(id);
-            if (classEntity == null)
-            {
-                throw new ClassNotFoundException();
-            }
-
-
             _mapper.Map(updateClassDto, classEntity);
-
             _context.Classes.Update(classEntity);
+          
+           
+
+          
             await _context.SaveChangesAsync();
 
             return _mapper.Map<ClassDTO>(classEntity);
+
+            
         }
-        
+ 
+
         public async Task DeleteClassAsync(Guid id)
         {
             var classEntity = await _context.Classes.FindAsync(id);

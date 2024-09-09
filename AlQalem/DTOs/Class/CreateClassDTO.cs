@@ -9,8 +9,8 @@ namespace AlQalem.DTOs.Class
 
         public required Guid GradeLevelId { get; set; }
 
-        public Guid SchoolId { get; set; }
+        public required Guid SchoolId { get; set; }
 
-        public IList<SubjectTeacherDto> ClassSubjectTeachers { get; set; }
+        public required IList<SubjectTeacherDto> ClassSubjectTeachers { get; set; }
     }
 }
