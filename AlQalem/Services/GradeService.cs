@@ -18,7 +18,7 @@ namespace AlQalem.Services
             _mapper = mapper;
         }
 
-        // Retrieve all grades
+        
         public async Task<IEnumerable<GradeDTO>> GetGradesAsync()
         {
             var grades = await _context.Grades

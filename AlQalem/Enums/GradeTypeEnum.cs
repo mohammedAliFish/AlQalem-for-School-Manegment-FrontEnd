@@ -2,11 +2,11 @@
 {
     public enum GradeTypeEnum
     {
-        Month1,
-        Month2,
-        MidYear,
-        Term1,
-        Term2,
-        FinalExam
+        الشهر_الأول,
+        الشهر_الثاني,
+        نصف_العام,
+        الفصل_الأول,
+        الفصل_الثاني,
+        الامتحان_النهائي
     }
 }

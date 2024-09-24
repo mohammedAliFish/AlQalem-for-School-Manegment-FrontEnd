@@ -1,5 +1,5 @@
 ﻿using AlQalem.Models;
-using AlQalem.Seeders;
+//using AlQalem.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
@@ -58,13 +58,13 @@ namespace AlQalem.Data
                 .HasMany(c => c.ClassSubjectTeachers)
                 .WithOne(cst => cst.Class)
                 .HasForeignKey(cst => cst.ClassId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Class>()
                 .HasMany(c => c.ClassTeachers)
                 .WithOne(ct => ct.Class)
                 .HasForeignKey(ct => ct.ClassId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Class>()
                 .HasOne(c => c.GradeLevel)
@@ -169,7 +169,7 @@ namespace AlQalem.Data
 
             // Seed data
 
-            StudentStatusSeeder.Seed(modelBuilder);
+            //StudentStatusSeeder.Seed(modelBuilder);
             
             AcademicYearSeeder.Seed(modelBuilder);
         }

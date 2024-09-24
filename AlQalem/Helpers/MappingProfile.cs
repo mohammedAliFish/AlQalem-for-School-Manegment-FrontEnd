@@ -47,14 +47,21 @@ namespace AlQalem.Mappings
             CreateMap<CreateTeacherDTO, Teacher>();
             CreateMap<Teacher, TeacherDTO>();
             CreateMap<UpdateTeacherDTO, Teacher>();
-          
+
 
 
 
 
             CreateMap<Student, StudentDTO>()
-           .ReverseMap();
-            CreateMap<CreateStudentDto, Student>();
+                .ForMember(dest => dest.ClassName,opt =>opt.MapFrom(src => src.Class.Name))
+                .ForMember(dest => dest.GradeLevelName, opt => opt.MapFrom(src => src.Class.GradeLevel.Name))
+
+     .ReverseMap();
+
+           
+            CreateMap<CreateStudentDTO, Student>();
+
+           
             CreateMap<UpdateStudentDTO, Student>();
 
 
@@ -66,7 +73,14 @@ namespace AlQalem.Mappings
             CreateMap<CreateGradeDTO, Grade>()
             .ForMember(dest => dest.GradeId, opt => opt.Ignore());
 
-            CreateMap<Grade, GradeDTO>();
+            CreateMap<Grade, GradeDTO>()
+              .ForMember(dest => dest.StudentName, opt => opt.MapFrom(src => src.Student.Name))
+              .ForMember(dest => dest.SubjectName, opt => opt.MapFrom(src => src.Subject.Name))
+                 .ReverseMap();
+
+
+
+
 
             CreateMap<CreateGradeDTO, GradeDTO>()   
                 .ReverseMap();
@@ -77,14 +91,7 @@ namespace AlQalem.Mappings
            
             CreateMap<UpdateSubjectDTO, Subject>();
 
-            CreateMap<Grade, GradeDTO>()
-                .ReverseMap();
-
-            CreateMap<Grade, GradeDTO>()
-           .ForMember(dest => dest.GradeType, opt => opt.MapFrom(src => src.GradeType.ToString())) 
-           .ForMember(dest => dest.StudentId, opt => opt.MapFrom(src => src.Student.Name))
-           .ForMember(dest => dest.GradeLevelId, opt => opt.MapFrom(src => src.GradeLevel.Name))
-           .ForMember(dest => dest.AcademicYearId, opt => opt.MapFrom(src => src.AcademicYear.Year));
+           
 
            
 

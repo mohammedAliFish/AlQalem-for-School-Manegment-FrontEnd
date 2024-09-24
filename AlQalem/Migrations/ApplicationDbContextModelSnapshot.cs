@@ -33,7 +33,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("AcademicYearId");
 
-                    b.ToTable("AcademicYears");
+                    b.ToTable("AcademicYears", (string)null);
 
                     b.HasData(
                         new
@@ -104,7 +104,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("AttachmentId");
 
-                    b.ToTable("Attachments");
+                    b.ToTable("Attachments", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.Class", b =>
@@ -132,7 +132,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("Classes");
+                    b.ToTable("Classes", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.ClassSubjectTeacher", b =>
@@ -158,7 +158,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("ClassSubjectTeachers");
+                    b.ToTable("ClassSubjectTeachers", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.ClassTeacher", b =>
@@ -173,7 +173,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("ClassTeachers");
+                    b.ToTable("ClassTeachers", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.GradeLevels", b =>
@@ -188,7 +188,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("GradeLevelId");
 
-                    b.ToTable("GradeLevels");
+                    b.ToTable("GradeLevels", (string)null);
 
                     b.HasData(
                         new
@@ -230,7 +230,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("SchoolId");
 
-                    b.ToTable("Schools");
+                    b.ToTable("Schools", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.Student", b =>
@@ -259,7 +259,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.StudentAttachment", b =>
@@ -283,7 +283,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentAttachments");
+                    b.ToTable("StudentAttachments", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.StudentStatus", b =>
@@ -301,7 +301,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("StudentStatusId");
 
-                    b.ToTable("StudentStatuses");
+                    b.ToTable("StudentStatuses", (string)null);
 
                     b.HasData(
                         new
@@ -345,7 +345,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("SubjectId");
 
-                    b.ToTable("Subjects");
+                    b.ToTable("Subjects", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.Teacher", b =>
@@ -363,7 +363,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("TeacherId");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.TeacherSubject", b =>
@@ -378,7 +378,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("TeacherSubjects");
+                    b.ToTable("TeacherSubjects", (string)null);
                 });
 
             modelBuilder.Entity("AlQalem.Models.User", b =>
@@ -480,7 +480,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("Grades");
+                    b.ToTable("Grades", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

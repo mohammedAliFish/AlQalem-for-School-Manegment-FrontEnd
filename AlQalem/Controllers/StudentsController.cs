@@ -45,7 +45,7 @@ namespace AlQalem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<StudentDTO>> CreateStudent([FromBody] CreateStudentDto createStudentDto)
+        public async Task<ActionResult<StudentDTO>> CreateStudent([FromBody] CreateStudentDTO createStudentDto)
         {
             if (!ModelState.IsValid)
             {

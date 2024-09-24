@@ -14,10 +14,10 @@ namespace AlQalem.DTOs.Class
         [MaxLength(20)]
         public required string Name { get; set; }
 
-        public required Guid GradeLevelId { get; set; }
-        public required GradeLevelDTO GradeLevel { get; set; }
+        public  Guid GradeLevelId { get; set; }
+        public  GradeLevelDTO GradeLevel { get; set; }
 
-        public required Guid SchoolId { get; set; }
+        public  Guid SchoolId { get; set; }
 
         public ICollection<SubjectDTO> Subjects { get; set; }
         public ICollection<TeacherDTO> Teachers { get; set; }

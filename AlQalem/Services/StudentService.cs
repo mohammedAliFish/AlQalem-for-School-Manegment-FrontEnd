@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using AlQalem.Exceptions.StudentExceptions;
 
 
+
 namespace AlQalem.Services
 {
     public class StudentService : InterfaceStudentService
@@ -19,18 +20,25 @@ namespace AlQalem.Services
             _mapper = mapper;
         }
 
-        
+
         public async Task<IEnumerable<StudentDTO>> GetStudentsAsync()
         {
             var students = await _context.Students
-             
+                .Include(s => s.Class)
+                .ThenInclude(c => c.GradeLevel) 
+                .Include(s => s.StudentAttachments) 
+                .Where(s => !s.IsDeleted) 
                 .ToListAsync();
+
             return _mapper.Map<IEnumerable<StudentDTO>>(students);
         }
 
-      
 
-        
+
+
+
+
+
         public async Task<StudentDTO> GetStudentByIdAsync(Guid id)
         {
             var student = await _context.Students
@@ -45,12 +53,9 @@ namespace AlQalem.Services
 
         
 
-        public async Task<StudentDTO> CreateStudentAsync(CreateStudentDto createStudentDto)
+        public async Task<StudentDTO> CreateStudentAsync(CreateStudentDTO createStudentDto)
         {
-            if (createStudentDto == null)
-            {
-                throw new InvalidStudentDataException("بيانات الطالب غير صالحة.");
-            }
+           
             var student = _mapper.Map<Student>(createStudentDto);
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
