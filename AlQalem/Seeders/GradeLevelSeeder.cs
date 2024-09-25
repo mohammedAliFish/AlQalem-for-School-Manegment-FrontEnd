@@ -1,6 +1,6 @@
 ﻿
 
-/*
+
 
 using Microsoft.EntityFrameworkCore;
 using AlQalem.Models;
@@ -20,4 +20,3 @@ namespace AlQalem.Seeders
         }
     }
 }
-*/

@@ -7,7 +7,7 @@ namespace AlQalem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-  //  [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class MainPageController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
