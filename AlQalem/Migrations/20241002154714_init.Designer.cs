@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlQalem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240817201144_AddGradeTypeToGrade1")]
-    partial class AddGradeTypeToGrade1
+    [Migration("20241002154714_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,48 +37,6 @@ namespace AlQalem.Migrations
                     b.HasKey("AcademicYearId");
 
                     b.ToTable("AcademicYears");
-
-                    b.HasData(
-                        new
-                        {
-                            AcademicYearId = new Guid("c53180e4-97d0-47eb-b987-b25d5de7f6f0"),
-                            Year = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("e527cd83-0e18-4e80-a426-1e482383ee1c"),
-                            Year = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("683c78bf-221d-4351-89b2-149553b5067d"),
-                            Year = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("053dd4fb-89aa-435c-9145-7cd7c64dda86"),
-                            Year = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("93eb11e9-959e-41bd-9577-978d72b37a05"),
-                            Year = new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("b77a3f93-5d03-4604-9e38-25df850e279c"),
-                            Year = new DateTime(2028, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("531891c0-c252-457d-9e52-b3814dd958bc"),
-                            Year = new DateTime(2029, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("7456aafd-363a-477d-b653-31ce9cc7c99c"),
-                            Year = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("AlQalem.Models.Attachment", b =>
@@ -192,129 +150,6 @@ namespace AlQalem.Migrations
                     b.HasKey("GradeLevelId");
 
                     b.ToTable("GradeLevels");
-
-                    b.HasData(
-                        new
-                        {
-                            GradeLevelId = new Guid("d877be1f-3c41-4441-9c4e-34d3df6c146b"),
-                            Name = "الاول متوسط"
-                        },
-                        new
-                        {
-                            GradeLevelId = new Guid("ecb0bcce-4a80-4669-8be3-b11cd3abe516"),
-                            Name = "الثاني متوسط"
-                        },
-                        new
-                        {
-                            GradeLevelId = new Guid("8d192da8-9799-4916-8b24-497444a647db"),
-                            Name = "الثالث متوسط "
-                        });
-                });
-
-            modelBuilder.Entity("AlQalem.Models.Permission", b =>
-                {
-                    b.Property<Guid>("PermissionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PermissionNumber")
-                        .HasColumnType("int");
-
-                    b.HasKey("PermissionId");
-
-                    b.ToTable("Permissions");
-
-                    b.HasData(
-                        new
-                        {
-                            PermissionId = new Guid("a7f5d1f8-6b57-4d5e-8ed1-76e2d6e9f0c3"),
-                            Name = "View",
-                            PermissionNumber = 0
-                        },
-                        new
-                        {
-                            PermissionId = new Guid("b7f5d1f8-6b57-4d5e-8ed1-76e2d6e9f0c3"),
-                            Name = "Create",
-                            PermissionNumber = 0
-                        },
-                        new
-                        {
-                            PermissionId = new Guid("c7f5d1f8-6b57-4d5e-8ed1-76e2d6e9f0c3"),
-                            Name = "Edit",
-                            PermissionNumber = 0
-                        },
-                        new
-                        {
-                            PermissionId = new Guid("d7f5d1f8-6b57-4d5e-8ed1-76e2d6e9f0c3"),
-                            Name = "Delete",
-                            PermissionNumber = 0
-                        });
-                });
-
-            modelBuilder.Entity("AlQalem.Models.Role", b =>
-                {
-                    b.Property<Guid>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = new Guid("d68e9703-6722-4cf2-9d73-b5e2f1c064d8"),
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            RoleId = new Guid("0862688c-9742-4d70-9d85-f2197f48c8a6"),
-                            Name = "Teacher"
-                        },
-                        new
-                        {
-                            RoleId = new Guid("66cd92a5-61f3-488f-bfb2-cb994191eb7c"),
-                            Name = "Student"
-                        },
-                        new
-                        {
-                            RoleId = new Guid("b7f5d1f8-6b57-4d5e-8ed1-76e2d6e9f0c3"),
-                            Name = "Admin"
-                        },
-                        new
-                        {
-                            RoleId = new Guid("c7f5d1f8-6b57-4d5e-8ed1-76e2d6e9f0c3"),
-                            Name = "Teacher"
-                        },
-                        new
-                        {
-                            RoleId = new Guid("d7f5d1f8-6b57-4d5e-8ed1-76e2d6e9f0c3"),
-                            Name = "Student"
-                        });
-                });
-
-            modelBuilder.Entity("AlQalem.Models.RolePermission", b =>
-                {
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PermissionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("RoleId", "PermissionId");
-
-                    b.HasIndex("PermissionId");
-
-                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("AlQalem.Models.School", b =>
@@ -406,37 +241,14 @@ namespace AlQalem.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("StudentStatusId");
 
-                    b.ToTable("StudentStatuses");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                    b.HasData(
-                        new
-                        {
-                            StudentStatusId = new Guid("be17c64f-930c-4d1d-b92c-7d3e764309b3"),
-                            IsDeleted = false,
-                            Name = "Ongoing"
-                        },
-                        new
-                        {
-                            StudentStatusId = new Guid("b0592458-6abe-4542-873e-dfd4be400581"),
-                            IsDeleted = false,
-                            Name = "Transferred"
-                        },
-                        new
-                        {
-                            StudentStatusId = new Guid("b8608202-3970-4010-be45-110e245cee30"),
-                            IsDeleted = false,
-                            Name = "Expelled"
-                        },
-                        new
-                        {
-                            StudentStatusId = new Guid("d094cc93-bdde-475a-bf16-805af13a7840"),
-                            IsDeleted = false,
-                            Name = "Interrupted"
-                        });
+                    b.ToTable("StudentStatuses");
                 });
 
             modelBuilder.Entity("AlQalem.Models.Subject", b =>
@@ -470,13 +282,7 @@ namespace AlQalem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("TeacherId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Teachers");
                 });
@@ -498,37 +304,67 @@ namespace AlQalem.Migrations
 
             modelBuilder.Entity("AlQalem.Models.User", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
+                    b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
-                    b.HasIndex("RoleId");
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.ToTable("Users");
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Grade", b =>
@@ -568,6 +404,139 @@ namespace AlQalem.Migrations
                     b.ToTable("Grades");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("AlQalem.Models.Class", b =>
                 {
                     b.HasOne("AlQalem.Models.GradeLevels", "GradeLevel")
@@ -592,7 +561,7 @@ namespace AlQalem.Migrations
                     b.HasOne("AlQalem.Models.Class", "Class")
                         .WithMany("ClassSubjectTeachers")
                         .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AlQalem.Models.Subject", "Subject")
@@ -619,7 +588,7 @@ namespace AlQalem.Migrations
                     b.HasOne("AlQalem.Models.Class", "Class")
                         .WithMany("ClassTeachers")
                         .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AlQalem.Models.Teacher", "Teacher")
@@ -631,25 +600,6 @@ namespace AlQalem.Migrations
                     b.Navigation("Class");
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("AlQalem.Models.RolePermission", b =>
-                {
-                    b.HasOne("AlQalem.Models.Permission", "Permission")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("AlQalem.Models.Role", "Role")
-                        .WithMany("RolePermissions")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Permission");
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("AlQalem.Models.Student", b =>
@@ -690,17 +640,6 @@ namespace AlQalem.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("AlQalem.Models.Teacher", b =>
-                {
-                    b.HasOne("AlQalem.Models.User", "User")
-                        .WithOne("Teacher")
-                        .HasForeignKey("AlQalem.Models.Teacher", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("AlQalem.Models.TeacherSubject", b =>
                 {
                     b.HasOne("AlQalem.Models.Subject", "Subject")
@@ -718,17 +657,6 @@ namespace AlQalem.Migrations
                     b.Navigation("Subject");
 
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("AlQalem.Models.User", b =>
-                {
-                    b.HasOne("AlQalem.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Grade", b =>
@@ -766,6 +694,57 @@ namespace AlQalem.Migrations
                     b.Navigation("Subject");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("AlQalem.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("AlQalem.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AlQalem.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("AlQalem.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AlQalem.Models.AcademicYear", b =>
                 {
                     b.Navigation("Grades");
@@ -790,18 +769,6 @@ namespace AlQalem.Migrations
                     b.Navigation("Classes");
 
                     b.Navigation("Grades");
-                });
-
-            modelBuilder.Entity("AlQalem.Models.Permission", b =>
-                {
-                    b.Navigation("RolePermissions");
-                });
-
-            modelBuilder.Entity("AlQalem.Models.Role", b =>
-                {
-                    b.Navigation("RolePermissions");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("AlQalem.Models.School", b =>
@@ -837,12 +804,6 @@ namespace AlQalem.Migrations
                     b.Navigation("ClassTeachers");
 
                     b.Navigation("TeacherSubjects");
-                });
-
-            modelBuilder.Entity("AlQalem.Models.User", b =>
-                {
-                    b.Navigation("Teacher")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

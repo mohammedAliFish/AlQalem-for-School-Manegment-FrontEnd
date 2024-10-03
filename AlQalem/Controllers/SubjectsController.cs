@@ -1,5 +1,4 @@
 ﻿using AlQalem.DTOs.Subject;
-using AlQalem.Exceptions;
 using AlQalem.Exceptions.SubjectExceptions;
 using AlQalem.Models;
 using AutoMapper;

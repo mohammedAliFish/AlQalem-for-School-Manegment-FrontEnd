@@ -9,5 +9,7 @@ public interface InterfaceStudentService
     Task<StudentDTO> CreateStudentAsync(CreateStudentDTO createStudentDto);
     Task<StudentDTO> UpdateStudentAsync(Guid id, UpdateStudentDTO updateStudentDTO);
 
+    Task<Object> GetStudentStatusListAsync();
+
     Task DeleteStudentAsync(Guid id);
 }

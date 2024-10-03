@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\students\" />
     <Folder Include="wwwroot\SchoolLogo\" />
   </ItemGroup>
 

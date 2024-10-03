@@ -98,6 +98,7 @@ namespace AlQalem.Mappings
 
             CreateMap<School, SchoolDTO>()
            .ForMember(dest => dest.LogoPath, opt => opt.MapFrom(src => src.LogoPath));
+            CreateMap<CreateSchoolDTO, SchoolDTO>();
 
             CreateMap<StudentAttachment, StudentAttachmentDTO>()
                .ReverseMap();

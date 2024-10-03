@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using AlQalem.Exceptions.GradeExceptions;
 using Microsoft.AspNetCore.Authorization;
+using AlQalem.Enums;
 
 namespace AlQalem.Controllers
 {
@@ -18,6 +19,16 @@ namespace AlQalem.Controllers
         {
             _gradeService = gradeService;
             _mapper = mapper;
+        }
+        [HttpGet("gradeTypes")]
+        public ActionResult<IEnumerable<string>> GetGradeTypes()
+        {
+            var gradeTypes = Enum.GetValues(typeof(GradeTypeEnum))
+                                 .Cast<GradeTypeEnum>()
+                                 .Select(g => g.ToString())
+                                 .ToList();
+
+            return Ok(gradeTypes);
         }
 
         [HttpGet]
@@ -45,7 +56,7 @@ namespace AlQalem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GradeDTO>> CreateGrade([FromForm] CreateGradeDTO createGradeDto)
+        public async Task<ActionResult<GradeDTO>> CreateGrade([FromBody] CreateGradeDTO createGradeDto)
         {
             if (!ModelState.IsValid)
             {

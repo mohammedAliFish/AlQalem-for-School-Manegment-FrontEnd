@@ -13,12 +13,18 @@ namespace AlQalem.Controllers
     {
         private readonly InterfaceStudentService _studentService;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _environment;
 
-        public StudentsController(InterfaceStudentService studentService, IMapper mapper)
+
+        public StudentsController(InterfaceStudentService studentService, IMapper mapper, IWebHostEnvironment environment)
         {
             _studentService = studentService;
             _mapper = mapper;
+            _environment = environment;
+
         }
+
+      
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentDTO>>> GetStudents()
@@ -45,7 +51,7 @@ namespace AlQalem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<StudentDTO>> CreateStudent([FromBody] CreateStudentDTO createStudentDto)
+        public async Task<ActionResult<StudentDTO>> CreateStudent([FromForm] CreateStudentDTO createStudentDto)
         {
             if (!ModelState.IsValid)
             {
@@ -58,6 +64,8 @@ namespace AlQalem.Controllers
 
             return CreatedAtAction(nameof(GetStudent), new { id = createdStudentDto.StudentId }, createdStudentDto);
         }
+        
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateStudent(Guid id, [FromBody] UpdateStudentDTO updateStudentDTO)
@@ -84,5 +92,9 @@ namespace AlQalem.Controllers
             await _studentService.DeleteStudentAsync(id);
             return NoContent();
         }
+
+        [HttpGet("/api/Students/getStudentStatusList")]
+        public async Task<ActionResult<Object>> GetStudentStatusList() => Ok(await _studentService.GetStudentStatusListAsync());
+        
     }
 }

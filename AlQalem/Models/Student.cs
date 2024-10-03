@@ -1,6 +1,5 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
-
 namespace AlQalem.Models
 {
     public class Student

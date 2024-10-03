@@ -1,7 +1,8 @@
 ﻿using AlQalem.Models;
-//using AlQalem.Seeders;
+using AlQalem.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 
 namespace AlQalem.Data
 {
@@ -31,7 +32,7 @@ namespace AlQalem.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure composite keys
+           
             
 
             modelBuilder.Entity<ClassTeacher>()
@@ -118,15 +119,22 @@ namespace AlQalem.Data
                 .HasForeignKey(s => s.StatusId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+           
+
             modelBuilder.Entity<Attachment>()
                 .HasMany(a => a.StudentAttachments)
                 .WithOne(sa => sa.Attachment)
                 .HasForeignKey(sa => sa.AttachmentId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-           
 
-        
+            modelBuilder.Entity<ClassSubjectTeacher>()
+                .HasOne(cst => cst.Class)
+                .WithMany(c => c.ClassSubjectTeachers)
+                .HasForeignKey(cst => cst.ClassId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
 
 
             modelBuilder.Entity<AcademicYear>()
@@ -139,9 +147,11 @@ namespace AlQalem.Data
                 .Property(g => g.Score)
                 .HasColumnType("decimal(18,2)");
 
+            modelBuilder.Entity<StudentStatus>().HasIndex(s => s.Name).IsUnique();
+
            
 
-            // Global query filters
+            
             modelBuilder.Entity<School>()
                 .HasQueryFilter(s => !s.IsDeleted);
 
@@ -165,13 +175,6 @@ namespace AlQalem.Data
 
             modelBuilder.Entity<Teacher>()
                 .HasQueryFilter(s => !s.IsDeleted);
-
-
-            // Seed data
-
-            //StudentStatusSeeder.Seed(modelBuilder);
-            
-            AcademicYearSeeder.Seed(modelBuilder);
         }
     }
 }

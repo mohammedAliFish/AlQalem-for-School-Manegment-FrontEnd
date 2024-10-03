@@ -75,9 +75,10 @@ namespace AlQalem.Controllers
 
                 return CreatedAtAction(nameof(GetSchoolById), new { id = createdSchoolDto.SchoolId }, createdSchoolDto);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new SchoolCreationException();
+                Console.WriteLine($"Error occurred: {ex.Message}");
+                return StatusCode(500, new { Message = "حدث خطأ أثناء إنشاء المدرسة", Error = ex.Message });
             }
         }
 

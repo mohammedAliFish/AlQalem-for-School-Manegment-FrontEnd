@@ -1,6 +1,5 @@
 ﻿
 
-using AlQalem.Enums;
 
 
 namespace AlQalem.Models
@@ -10,7 +9,7 @@ namespace AlQalem.Models
         public Guid StudentStatusId { get; set; }
 
         
-        public required StudentStatusEnums Name { get; set; }
+        public required string Name { get; set; }
 
         public bool IsDeleted { get; set; } 
 

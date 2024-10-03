@@ -33,49 +33,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("AcademicYearId");
 
-                    b.ToTable("AcademicYears", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            AcademicYearId = new Guid("fab5ca9a-a437-4983-877e-47a154d61cbb"),
-                            Year = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("49988a7b-5030-47c0-8d25-3c1268fdc50d"),
-                            Year = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("55b0d654-0187-4705-b358-a023e3307abc"),
-                            Year = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("93f60a5e-f76c-4a4b-bf8c-9e830ad438c2"),
-                            Year = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("f78a0aca-40d3-4520-9c43-391b1f0dde38"),
-                            Year = new DateTime(2027, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("3835f7fb-0b6f-42bc-847e-96597b9544cc"),
-                            Year = new DateTime(2028, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("f0ce96e0-82c2-43e3-9fd9-07fbdf5824e3"),
-                            Year = new DateTime(2029, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            AcademicYearId = new Guid("d343028f-20b8-4d38-8738-6fa5d1ca4f08"),
-                            Year = new DateTime(2030, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
+                    b.ToTable("AcademicYears");
                 });
 
             modelBuilder.Entity("AlQalem.Models.Attachment", b =>
@@ -104,7 +62,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("AttachmentId");
 
-                    b.ToTable("Attachments", (string)null);
+                    b.ToTable("Attachments");
                 });
 
             modelBuilder.Entity("AlQalem.Models.Class", b =>
@@ -132,7 +90,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("Classes", (string)null);
+                    b.ToTable("Classes");
                 });
 
             modelBuilder.Entity("AlQalem.Models.ClassSubjectTeacher", b =>
@@ -158,7 +116,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("ClassSubjectTeachers", (string)null);
+                    b.ToTable("ClassSubjectTeachers");
                 });
 
             modelBuilder.Entity("AlQalem.Models.ClassTeacher", b =>
@@ -173,7 +131,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("ClassTeachers", (string)null);
+                    b.ToTable("ClassTeachers");
                 });
 
             modelBuilder.Entity("AlQalem.Models.GradeLevels", b =>
@@ -188,24 +146,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("GradeLevelId");
 
-                    b.ToTable("GradeLevels", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            GradeLevelId = new Guid("27c9c5a3-c154-4e58-9736-33cb8c22cdf6"),
-                            Name = "الاول متوسط"
-                        },
-                        new
-                        {
-                            GradeLevelId = new Guid("7b41ac1c-3e97-4a41-a0c6-c7389d4b6ee7"),
-                            Name = "الثاني متوسط"
-                        },
-                        new
-                        {
-                            GradeLevelId = new Guid("36f47bcc-c69b-41e1-9571-ab92d4da42a4"),
-                            Name = "الثالث متوسط "
-                        });
+                    b.ToTable("GradeLevels");
                 });
 
             modelBuilder.Entity("AlQalem.Models.School", b =>
@@ -230,7 +171,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("SchoolId");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
                 });
 
             modelBuilder.Entity("AlQalem.Models.Student", b =>
@@ -259,7 +200,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("StatusId");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("AlQalem.Models.StudentAttachment", b =>
@@ -283,7 +224,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentAttachments", (string)null);
+                    b.ToTable("StudentAttachments");
                 });
 
             modelBuilder.Entity("AlQalem.Models.StudentStatus", b =>
@@ -297,37 +238,14 @@ namespace AlQalem.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("StudentStatusId");
 
-                    b.ToTable("StudentStatuses", (string)null);
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                    b.HasData(
-                        new
-                        {
-                            StudentStatusId = new Guid("cc1a4666-0f46-4e01-94c1-4fffaf1a5a34"),
-                            IsDeleted = false,
-                            Name = "Ongoing"
-                        },
-                        new
-                        {
-                            StudentStatusId = new Guid("3ac5f658-6e3b-4cdd-a104-a648b9f148b5"),
-                            IsDeleted = false,
-                            Name = "Transferred"
-                        },
-                        new
-                        {
-                            StudentStatusId = new Guid("db59aca4-bae1-4d66-96c3-ca01bbe0b39e"),
-                            IsDeleted = false,
-                            Name = "Expelled"
-                        },
-                        new
-                        {
-                            StudentStatusId = new Guid("8806c169-87b0-48cf-9d6a-def57971302a"),
-                            IsDeleted = false,
-                            Name = "Interrupted"
-                        });
+                    b.ToTable("StudentStatuses");
                 });
 
             modelBuilder.Entity("AlQalem.Models.Subject", b =>
@@ -345,7 +263,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("SubjectId");
 
-                    b.ToTable("Subjects", (string)null);
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("AlQalem.Models.Teacher", b =>
@@ -363,7 +281,7 @@ namespace AlQalem.Migrations
 
                     b.HasKey("TeacherId");
 
-                    b.ToTable("Teachers", (string)null);
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("AlQalem.Models.TeacherSubject", b =>
@@ -378,7 +296,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("TeacherSubjects", (string)null);
+                    b.ToTable("TeacherSubjects");
                 });
 
             modelBuilder.Entity("AlQalem.Models.User", b =>
@@ -480,7 +398,7 @@ namespace AlQalem.Migrations
 
                     b.HasIndex("SubjectId");
 
-                    b.ToTable("Grades", (string)null);
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -640,7 +558,7 @@ namespace AlQalem.Migrations
                     b.HasOne("AlQalem.Models.Class", "Class")
                         .WithMany("ClassSubjectTeachers")
                         .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AlQalem.Models.Subject", "Subject")
@@ -667,7 +585,7 @@ namespace AlQalem.Migrations
                     b.HasOne("AlQalem.Models.Class", "Class")
                         .WithMany("ClassTeachers")
                         .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AlQalem.Models.Teacher", "Teacher")

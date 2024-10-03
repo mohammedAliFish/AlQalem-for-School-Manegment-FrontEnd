@@ -1,22 +1,31 @@
-﻿
-
-
-
-using Microsoft.EntityFrameworkCore;
+﻿using AlQalem.Data;
 using AlQalem.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AlQalem.Seeders
 {
     public class GradeLevelSeeder
     {
-        public static void Seed(ModelBuilder modelBuilder)
+        public static async Task Seed(ApplicationDbContext context)
         {
-            modelBuilder.Entity<GradeLevels>().HasData(
+          
+            var count = await context.GradeLevels.CountAsync();
+
+           
+            if (count > 0)
+                return;
+
+         
+            var gradeLevels = new List<GradeLevels>
+            {
                 new GradeLevels { GradeLevelId = Guid.NewGuid(), Name = "الاول متوسط" },
                 new GradeLevels { GradeLevelId = Guid.NewGuid(), Name = "الثاني متوسط" },
-                new GradeLevels { GradeLevelId = Guid.NewGuid(), Name = "الثالث متوسط " }
+                new GradeLevels { GradeLevelId = Guid.NewGuid(), Name = "الثالث متوسط" }
+            };
+
           
-            );
+            await context.GradeLevels.AddRangeAsync(gradeLevels);
+            await context.SaveChangesAsync();
         }
     }
 }

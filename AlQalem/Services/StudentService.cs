@@ -34,7 +34,13 @@ namespace AlQalem.Services
         }
 
 
+        public async Task<Object> GetStudentStatusListAsync()
+        {
+            var statuses = await _context.StudentStatuses
+                .ToListAsync();
 
+            return statuses;
+        }
 
 
 
